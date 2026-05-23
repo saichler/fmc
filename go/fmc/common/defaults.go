@@ -22,9 +22,6 @@ import (
 
 const PREFIX = "/fmc/"
 
-var DB_CREDS = "postgres"
-var DB_NAME = "fmc"
-
 func CreateResources(alias string, logVnet bool) ifs.IResources {
 	return l8c.CreateResources(alias, logVnet)
 }
