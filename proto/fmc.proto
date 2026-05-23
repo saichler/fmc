@@ -1,0 +1,534 @@
+syntax = "proto3";
+
+package fmc;
+
+option go_package = "./types/fmc";
+
+import "l8common.proto";
+import "api.proto";
+
+// ──────────────────────────────────────────────
+// Enums
+// ──────────────────────────────────────────────
+
+enum FmcMemberStatus {
+  FMC_MEMBER_STATUS_UNSPECIFIED = 0;
+  FMC_MEMBER_STATUS_TRIAL       = 1;
+  FMC_MEMBER_STATUS_ACTIVE      = 2;
+  FMC_MEMBER_STATUS_PAUSED      = 3;
+  FMC_MEMBER_STATUS_CANCELLED   = 4;
+  FMC_MEMBER_STATUS_CHURNED     = 5;
+}
+
+enum FmcCoachStatus {
+  FMC_COACH_STATUS_UNSPECIFIED = 0;
+  FMC_COACH_STATUS_ACTIVE      = 1;
+  FMC_COACH_STATUS_INACTIVE    = 2;
+  FMC_COACH_STATUS_ON_LEAVE    = 3;
+}
+
+enum FmcProgramType {
+  FMC_PROGRAM_TYPE_UNSPECIFIED  = 0;
+  FMC_PROGRAM_TYPE_WEIGHT_LOSS  = 1;
+  FMC_PROGRAM_TYPE_GLP1         = 2;
+  FMC_PROGRAM_TYPE_MAINTENANCE  = 3;
+  FMC_PROGRAM_TYPE_EMOTIONAL    = 4;
+}
+
+enum FmcSessionType {
+  FMC_SESSION_TYPE_UNSPECIFIED = 0;
+  FMC_SESSION_TYPE_VIDEO_CALL  = 1;
+  FMC_SESSION_TYPE_PHONE_CALL  = 2;
+  FMC_SESSION_TYPE_TEXT        = 3;
+}
+
+enum FmcSessionStatus {
+  FMC_SESSION_STATUS_UNSPECIFIED = 0;
+  FMC_SESSION_STATUS_SCHEDULED   = 1;
+  FMC_SESSION_STATUS_CONFIRMED   = 2;
+  FMC_SESSION_STATUS_IN_PROGRESS = 3;
+  FMC_SESSION_STATUS_COMPLETED   = 4;
+  FMC_SESSION_STATUS_CANCELLED   = 5;
+  FMC_SESSION_STATUS_NO_SHOW     = 6;
+}
+
+enum FmcGoalStatus {
+  FMC_GOAL_STATUS_UNSPECIFIED = 0;
+  FMC_GOAL_STATUS_ACTIVE      = 1;
+  FMC_GOAL_STATUS_ACHIEVED    = 2;
+  FMC_GOAL_STATUS_MISSED      = 3;
+  FMC_GOAL_STATUS_REPLACED    = 4;
+}
+
+enum FmcMealType {
+  FMC_MEAL_TYPE_UNSPECIFIED = 0;
+  FMC_MEAL_TYPE_BREAKFAST   = 1;
+  FMC_MEAL_TYPE_LUNCH       = 2;
+  FMC_MEAL_TYPE_DINNER      = 3;
+  FMC_MEAL_TYPE_SNACK       = 4;
+}
+
+enum FmcMealSource {
+  FMC_MEAL_SOURCE_UNSPECIFIED = 0;
+  FMC_MEAL_SOURCE_PHOTO       = 1;
+  FMC_MEAL_SOURCE_TEXT        = 2;
+}
+
+enum FmcAiStatus {
+  FMC_AI_STATUS_UNSPECIFIED = 0;
+  FMC_AI_STATUS_PENDING     = 1;
+  FMC_AI_STATUS_ANALYZING   = 2;
+  FMC_AI_STATUS_COMPLETE    = 3;
+  FMC_AI_STATUS_FAILED      = 4;
+}
+
+enum FmcRecipeCategory {
+  FMC_RECIPE_CATEGORY_UNSPECIFIED = 0;
+  FMC_RECIPE_CATEGORY_BREAKFAST   = 1;
+  FMC_RECIPE_CATEGORY_LUNCH       = 2;
+  FMC_RECIPE_CATEGORY_DINNER      = 3;
+  FMC_RECIPE_CATEGORY_SNACK       = 4;
+}
+
+enum FmcDietaryTag {
+  FMC_DIETARY_TAG_UNSPECIFIED  = 0;
+  FMC_DIETARY_TAG_HIGH_PROTEIN = 1;
+  FMC_DIETARY_TAG_HIGH_FIBER   = 2;
+  FMC_DIETARY_TAG_LOW_CARB     = 3;
+  FMC_DIETARY_TAG_VEGETARIAN   = 4;
+  FMC_DIETARY_TAG_VEGAN        = 5;
+  FMC_DIETARY_TAG_GLUTEN_FREE  = 6;
+  FMC_DIETARY_TAG_DAIRY_FREE   = 7;
+  FMC_DIETARY_TAG_GLP1_FRIENDLY = 8;
+}
+
+enum FmcSubscriptionStatus {
+  FMC_SUBSCRIPTION_STATUS_UNSPECIFIED = 0;
+  FMC_SUBSCRIPTION_STATUS_TRIAL       = 1;
+  FMC_SUBSCRIPTION_STATUS_ACTIVE      = 2;
+  FMC_SUBSCRIPTION_STATUS_PAUSED      = 3;
+  FMC_SUBSCRIPTION_STATUS_CANCELLED   = 4;
+  FMC_SUBSCRIPTION_STATUS_EXPIRED     = 5;
+}
+
+enum FmcSubscriptionPlan {
+  FMC_SUBSCRIPTION_PLAN_UNSPECIFIED = 0;
+  FMC_SUBSCRIPTION_PLAN_MONTHLY    = 1;
+  FMC_SUBSCRIPTION_PLAN_QUARTERLY  = 2;
+  FMC_SUBSCRIPTION_PLAN_ANNUAL     = 3;
+}
+
+enum FmcPartnerType {
+  FMC_PARTNER_TYPE_UNSPECIFIED  = 0;
+  FMC_PARTNER_TYPE_EMPLOYER     = 1;
+  FMC_PARTNER_TYPE_MEDICAL      = 2;
+  FMC_PARTNER_TYPE_TELEHEALTH   = 3;
+}
+
+enum FmcHabitCategory {
+  FMC_HABIT_CATEGORY_UNSPECIFIED = 0;
+  FMC_HABIT_CATEGORY_EATING      = 1;
+  FMC_HABIT_CATEGORY_HYDRATION   = 2;
+  FMC_HABIT_CATEGORY_SLEEP       = 3;
+  FMC_HABIT_CATEGORY_MOVEMENT    = 4;
+  FMC_HABIT_CATEGORY_MINDFULNESS = 5;
+}
+
+enum FmcMessageSender {
+  FMC_MESSAGE_SENDER_UNSPECIFIED = 0;
+  FMC_MESSAGE_SENDER_MEMBER      = 1;
+  FMC_MESSAGE_SENDER_COACH       = 2;
+  FMC_MESSAGE_SENDER_SYSTEM      = 3;
+}
+
+enum FmcWeightUnit {
+  FMC_WEIGHT_UNIT_UNSPECIFIED = 0;
+  FMC_WEIGHT_UNIT_KG          = 1;
+  FMC_WEIGHT_UNIT_LBS         = 2;
+}
+
+enum FmcHeightUnit {
+  FMC_HEIGHT_UNIT_UNSPECIFIED = 0;
+  FMC_HEIGHT_UNIT_CM          = 1;
+  FMC_HEIGHT_UNIT_IN          = 2;
+}
+
+enum FmcNotificationType {
+  FMC_NOTIFICATION_TYPE_UNSPECIFIED       = 0;
+  FMC_NOTIFICATION_TYPE_SESSION_REMINDER  = 1;
+  FMC_NOTIFICATION_TYPE_MEAL_NUDGE        = 2;
+  FMC_NOTIFICATION_TYPE_NEW_MESSAGE       = 3;
+  FMC_NOTIFICATION_TYPE_GOAL_MILESTONE    = 4;
+  FMC_NOTIFICATION_TYPE_COACH_CHECKIN     = 5;
+  FMC_NOTIFICATION_TYPE_PAYMENT_FAILED    = 6;
+  FMC_NOTIFICATION_TYPE_AI_ANALYSIS_READY = 7;
+  FMC_NOTIFICATION_TYPE_NO_SHOW           = 8;
+}
+
+// ──────────────────────────────────────────────
+// Child Types (no service, no List type)
+// ──────────────────────────────────────────────
+
+// Embedded in FmcMeal -- AI-detected nutritional breakdown
+message MealNutrient {
+  string nutrient_id  = 1;
+  string name         = 2;
+  int32  amount_mg    = 3;
+  int32  daily_pct    = 4;
+}
+
+// Embedded in FmcRecipe
+message RecipeIngredient {
+  string ingredient_id = 1;
+  string name          = 2;
+  string quantity      = 3;
+  string unit          = 4;
+  int32  calories      = 5;
+  int32  protein_g     = 6;
+}
+
+// Embedded in FmcRecipe
+message RecipeStep {
+  string step_id     = 1;
+  int32  step_number = 2;
+  string instruction = 3;
+  int32  duration_min = 4;
+}
+
+// Embedded in FmcGoal -- checkpoint milestones
+message GoalCheckpoint {
+  string checkpoint_id = 1;
+  int64  check_date    = 2;
+  bool   completed     = 3;
+  string notes         = 4;
+}
+
+// Embedded in FmcSubscription -- payment history
+message PaymentRecord {
+  string payment_id     = 1;
+  int64  payment_date   = 2;
+  l8common.Money amount = 3;
+  string stripe_txn_id  = 5;
+  bool   succeeded      = 6;
+  string failure_reason = 7;
+}
+
+// ──────────────────────────────────────────────
+// Prime Objects -- Module: core (Service Area 10)
+// ──────────────────────────────────────────────
+
+message FmcMember {
+  string           member_id         = 1;
+  string           first_name        = 2;
+  string           last_name         = 3;
+  string           email             = 4;
+  string           phone             = 5;
+  int64            date_of_birth     = 6;
+  FmcMemberStatus  status            = 7;
+  string           coach_id          = 8;
+  string           program_id        = 9;
+  string           user_id           = 10;
+  int64            enrollment_date   = 11;
+  int32            height_cm         = 12;
+  int32            starting_weight_g = 13;
+  int32            target_weight_g   = 14;
+  string           timezone          = 15;
+  string           dietary_prefs     = 16;
+  string           medical_notes     = 17;
+  bool             on_glp1           = 18;
+  string           glp1_medication   = 19;
+  string           partner_id        = 20;
+  string           referral_source   = 21;
+  FmcWeightUnit    weight_unit       = 22;
+  FmcHeightUnit    height_unit       = 23;
+  l8common.AuditInfo audit_info      = 30;
+}
+
+message FmcMemberList {
+  repeated FmcMember list    = 1;
+  l8api.L8MetaData   metadata = 2;
+}
+
+message FmcCoach {
+  string          coach_id        = 1;
+  string          first_name      = 2;
+  string          last_name       = 3;
+  string          email           = 4;
+  string          phone           = 5;
+  FmcCoachStatus  status          = 6;
+  string          certification   = 7;
+  string          specialization  = 8;
+  string          bio             = 9;
+  string          user_id         = 10;
+  int32           max_clients     = 11;
+  int32           active_clients  = 12;
+  string          image_storage_path = 13;
+  string          image_file_name    = 14;
+  int64           image_file_size    = 15;
+  l8common.AuditInfo audit_info   = 30;
+}
+
+message FmcCoachList {
+  repeated FmcCoach list     = 1;
+  l8api.L8MetaData  metadata = 2;
+}
+
+// ──────────────────────────────────────────────
+// Prime Objects -- Module: coaching (Service Area 20)
+// ──────────────────────────────────────────────
+
+message FmcProgram {
+  string          program_id    = 1;
+  string          name          = 2;
+  string          description   = 3;
+  FmcProgramType  program_type  = 4;
+  bool            is_active     = 5;
+  int32           duration_weeks = 6;
+  l8common.Money  price         = 7;
+  string          features      = 8;
+  l8common.AuditInfo audit_info = 30;
+}
+
+message FmcProgramList {
+  repeated FmcProgram list    = 1;
+  l8api.L8MetaData    metadata = 2;
+}
+
+message FmcSession {
+  string            session_id      = 1;
+  string            member_id       = 2;
+  string            coach_id        = 3;
+  FmcSessionType    session_type    = 4;
+  FmcSessionStatus  status          = 5;
+  int64             scheduled_time  = 6;
+  int64             start_time      = 7;
+  int64             end_time        = 8;
+  int32             duration_min    = 9;
+  string            coach_notes     = 10;
+  string            member_notes    = 11;
+  string            action_items    = 12;
+  string            focus_topic     = 13;
+  int32             week_number     = 14;
+  l8common.AuditInfo audit_info     = 30;
+}
+
+message FmcSessionList {
+  repeated FmcSession list    = 1;
+  l8api.L8MetaData    metadata = 2;
+}
+
+message FmcMessage {
+  string            message_id   = 1;
+  string            member_id    = 2;
+  string            coach_id     = 3;
+  FmcMessageSender  sender       = 4;
+  string            content      = 5;
+  int64             sent_at      = 6;
+  bool              is_read      = 7;
+  int64             read_at      = 8;
+  string            attachment_path = 9;
+  string            attachment_file_name = 10;
+  int64             attachment_file_size = 11;
+  l8common.AuditInfo audit_info   = 30;
+}
+
+message FmcMessageList {
+  repeated FmcMessage list    = 1;
+  l8api.L8MetaData    metadata = 2;
+}
+
+message FmcGoal {
+  string          goal_id      = 1;
+  string          member_id    = 2;
+  string          coach_id     = 3;
+  string          session_id   = 4;
+  string          title        = 5;
+  string          description  = 6;
+  FmcGoalStatus   status       = 7;
+  int64           start_date   = 8;
+  int64           target_date  = 9;
+  int32           week_number  = 10;
+  string          examples     = 11;
+  repeated GoalCheckpoint checkpoints = 20;
+  l8common.AuditInfo audit_info = 30;
+}
+
+message FmcGoalList {
+  repeated FmcGoal list      = 1;
+  l8api.L8MetaData  metadata = 2;
+}
+
+// ──────────────────────────────────────────────
+// Prime Objects -- Module: nutrition (Service Area 30)
+// ──────────────────────────────────────────────
+
+message FmcMeal {
+  string          meal_id          = 1;
+  string          member_id        = 2;
+  string          coach_id         = 27;
+  FmcMealType     meal_type        = 3;
+  FmcMealSource   source           = 4;
+  string          description      = 5;
+  string          image_storage_path = 6;
+  string          image_file_name    = 25;
+  int64           image_file_size    = 26;
+  int64           logged_at        = 7;
+  int32           calories         = 8;
+  int32           protein_g        = 9;
+  int32           fiber_g          = 10;
+  int32           carbs_g          = 11;
+  int32           fat_g            = 12;
+  int32           satiety_score    = 13;
+  string          ai_feedback      = 14;
+  string          ai_suggestions   = 15;
+  int32           confidence_pct   = 16;
+  FmcAiStatus     ai_status        = 17;
+  string          ai_error         = 18;
+  repeated MealNutrient nutrients  = 20;
+  l8common.AuditInfo audit_info    = 30;
+}
+
+message FmcMealList {
+  repeated FmcMeal list      = 1;
+  l8api.L8MetaData  metadata = 2;
+}
+
+message FmcRecipe {
+  string               recipe_id      = 1;
+  string               name           = 2;
+  string               description    = 3;
+  FmcRecipeCategory    category       = 4;
+  int32                prep_time_min  = 5;
+  int32                cook_time_min  = 6;
+  int32                servings       = 7;
+  int32                calories       = 8;
+  int32                protein_g      = 9;
+  int32                fiber_g        = 10;
+  int32                carbs_g        = 11;
+  int32                fat_g          = 12;
+  string               image_storage_path = 13;
+  string               image_file_name    = 22;
+  int64                image_file_size    = 23;
+  string               contributed_by = 14;
+  bool                 is_validated   = 15;
+  bool                 is_published   = 16;
+  repeated FmcDietaryTag dietary_tags = 17;
+  repeated RecipeIngredient ingredients = 20;
+  repeated RecipeStep steps           = 21;
+  l8common.AuditInfo   audit_info     = 30;
+}
+
+message FmcRecipeList {
+  repeated FmcRecipe list     = 1;
+  l8api.L8MetaData   metadata = 2;
+}
+
+// ──────────────────────────────────────────────
+// Prime Objects -- Module: progress (Service Area 40)
+// ──────────────────────────────────────────────
+
+message FmcWeightLog {
+  string           log_id       = 1;
+  string           member_id    = 2;
+  string           coach_id     = 10;
+  int64            log_date     = 3;
+  int32            weight_g     = 4;
+  string           notes        = 5;
+  string           image_storage_path = 6;
+  string           image_file_name    = 8;
+  int64            image_file_size    = 9;
+  l8common.AuditInfo audit_info = 30;
+}
+
+message FmcWeightLogList {
+  repeated FmcWeightLog list    = 1;
+  l8api.L8MetaData      metadata = 2;
+}
+
+message FmcHabitLog {
+  string             log_id       = 1;
+  string             member_id    = 2;
+  string             coach_id     = 9;
+  int64              log_date     = 3;
+  string             habit_name   = 4;
+  FmcHabitCategory   category     = 5;
+  bool               completed    = 6;
+  string             notes        = 7;
+  int32              streak_days  = 8;
+  l8common.AuditInfo audit_info   = 30;
+}
+
+message FmcHabitLogList {
+  repeated FmcHabitLog list    = 1;
+  l8api.L8MetaData     metadata = 2;
+}
+
+// ──────────────────────────────────────────────
+// Prime Objects -- Module: billing (Service Area 50)
+// ──────────────────────────────────────────────
+
+message FmcSubscription {
+  string                  subscription_id = 1;
+  string                  member_id       = 2;
+  FmcSubscriptionPlan     plan            = 3;
+  FmcSubscriptionStatus   status          = 4;
+  int64                   start_date      = 5;
+  int64                   end_date        = 6;
+  int64                   trial_end_date  = 7;
+  int64                   next_billing    = 8;
+  l8common.Money          price           = 9;
+  string                  stripe_customer_id = 11;
+  string                  stripe_sub_id   = 12;
+  int64                   paused_at       = 13;
+  int64                   resume_at       = 14;
+  string                  cancel_reason   = 15;
+  repeated PaymentRecord  payments        = 20;
+  l8common.AuditInfo      audit_info      = 30;
+}
+
+message FmcSubscriptionList {
+  repeated FmcSubscription list    = 1;
+  l8api.L8MetaData          metadata = 2;
+}
+
+message FmcPartner {
+  string           partner_id    = 1;
+  string           name          = 2;
+  FmcPartnerType   partner_type  = 3;
+  string           contact_name  = 4;
+  string           contact_email = 5;
+  string           contact_phone = 6;
+  bool             is_active     = 7;
+  string           contract_id   = 8;
+  int64            start_date    = 9;
+  int32            member_count  = 10;
+  string           notes         = 11;
+  l8common.AuditInfo audit_info  = 30;
+}
+
+message FmcPartnerList {
+  repeated FmcPartner list    = 1;
+  l8api.L8MetaData    metadata = 2;
+}
+
+// ──────────────────────────────────────────────
+// Request/Response types for tools and webhooks
+// ──────────────────────────────────────────────
+
+// FmcToolRequest -- stateless calculator input
+message FmcToolRequest {
+  string tool_name    = 1;
+  string input_json   = 2;
+}
+
+message FmcToolResponse {
+  string tool_name    = 1;
+  string output_json  = 2;
+  bool   success      = 3;
+  string error        = 4;
+}
+
+message FmcToolResponseList {
+  repeated FmcToolResponse list = 1;
+  l8api.L8MetaData metadata     = 2;
+}

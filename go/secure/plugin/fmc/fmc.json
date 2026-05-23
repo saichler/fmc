@@ -1,0 +1,320 @@
+{
+  "credentials": {
+    "postgres": {
+      "aside": "fmc",
+      "yside": "5432",
+      "zside": "admin"
+    },
+    "stripe": {
+      "aside": "sk_test_placeholder",
+      "zside": "whsec_placeholder"
+    }
+  },
+  "key": "fmc-encryption-key-change-in-prod",
+  "secret": "fmc-shared-secret-change-in-prod",
+  "roles": {
+    "admin": {
+      "rules": {
+        "admin-all": {
+          "ruleId": "admin-all",
+          "elemType": "*",
+          "allowed": true,
+          "actions": { "-999": true },
+          "attributes": { "*": "*" }
+        }
+      }
+    },
+    "coach": {
+      "rules": {
+        "coach-crud-session": {
+          "ruleId": "coach-crud-session",
+          "elemType": "FmcSession",
+          "allowed": true,
+          "actions": { "-999": true },
+          "attributes": { "*": "*" }
+        },
+        "coach-deny-other-sessions": {
+          "ruleId": "coach-deny-other-sessions",
+          "elemType": "FmcSession",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcSession": "select * from FmcSession where coachId!=${userId}"
+          }
+        },
+        "coach-crud-message": {
+          "ruleId": "coach-crud-message",
+          "elemType": "FmcMessage",
+          "allowed": true,
+          "actions": { "-999": true },
+          "attributes": { "*": "*" }
+        },
+        "coach-deny-other-messages": {
+          "ruleId": "coach-deny-other-messages",
+          "elemType": "FmcMessage",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcMessage": "select * from FmcMessage where coachId!=${userId}"
+          }
+        },
+        "coach-crud-goal": {
+          "ruleId": "coach-crud-goal",
+          "elemType": "FmcGoal",
+          "allowed": true,
+          "actions": { "-999": true },
+          "attributes": { "*": "*" }
+        },
+        "coach-deny-other-goals": {
+          "ruleId": "coach-deny-other-goals",
+          "elemType": "FmcGoal",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcGoal": "select * from FmcGoal where coachId!=${userId}"
+          }
+        },
+        "coach-crud-meal": {
+          "ruleId": "coach-crud-meal",
+          "elemType": "FmcMeal",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        },
+        "coach-deny-other-meals": {
+          "ruleId": "coach-deny-other-meals",
+          "elemType": "FmcMeal",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcMeal": "select * from FmcMeal where coachId!=${userId}"
+          }
+        },
+        "coach-crud-weightlog": {
+          "ruleId": "coach-crud-weightlog",
+          "elemType": "FmcWeightLog",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        },
+        "coach-deny-other-weightlogs": {
+          "ruleId": "coach-deny-other-weightlogs",
+          "elemType": "FmcWeightLog",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcWeightLog": "select * from FmcWeightLog where coachId!=${userId}"
+          }
+        },
+        "coach-crud-habitlog": {
+          "ruleId": "coach-crud-habitlog",
+          "elemType": "FmcHabitLog",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        },
+        "coach-deny-other-habitlogs": {
+          "ruleId": "coach-deny-other-habitlogs",
+          "elemType": "FmcHabitLog",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcHabitLog": "select * from FmcHabitLog where coachId!=${userId}"
+          }
+        },
+        "coach-read-member": {
+          "ruleId": "coach-read-member",
+          "elemType": "FmcMember",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        },
+        "coach-deny-other-members": {
+          "ruleId": "coach-deny-other-members",
+          "elemType": "FmcMember",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcMember": "select * from FmcMember where coachId!=${userId}"
+          }
+        },
+        "coach-read-program": {
+          "ruleId": "coach-read-program",
+          "elemType": "FmcProgram",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        },
+        "coach-read-recipe": {
+          "ruleId": "coach-read-recipe",
+          "elemType": "FmcRecipe",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        }
+      }
+    },
+    "member": {
+      "rules": {
+        "member-crud-meal": {
+          "ruleId": "member-crud-meal",
+          "elemType": "FmcMeal",
+          "allowed": true,
+          "actions": { "1": true, "5": true },
+          "attributes": { "*": "*" }
+        },
+        "member-deny-other-meals": {
+          "ruleId": "member-deny-other-meals",
+          "elemType": "FmcMeal",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcMeal": "select * from FmcMeal where memberId!=${userId}"
+          }
+        },
+        "member-crud-message": {
+          "ruleId": "member-crud-message",
+          "elemType": "FmcMessage",
+          "allowed": true,
+          "actions": { "1": true, "3": true, "5": true },
+          "attributes": { "*": "*" }
+        },
+        "member-deny-other-messages": {
+          "ruleId": "member-deny-other-messages",
+          "elemType": "FmcMessage",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcMessage": "select * from FmcMessage where memberId!=${userId}"
+          }
+        },
+        "member-crud-weightlog": {
+          "ruleId": "member-crud-weightlog",
+          "elemType": "FmcWeightLog",
+          "allowed": true,
+          "actions": { "1": true, "5": true },
+          "attributes": { "*": "*" }
+        },
+        "member-deny-other-weightlogs": {
+          "ruleId": "member-deny-other-weightlogs",
+          "elemType": "FmcWeightLog",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcWeightLog": "select * from FmcWeightLog where memberId!=${userId}"
+          }
+        },
+        "member-crud-habitlog": {
+          "ruleId": "member-crud-habitlog",
+          "elemType": "FmcHabitLog",
+          "allowed": true,
+          "actions": { "1": true, "5": true },
+          "attributes": { "*": "*" }
+        },
+        "member-deny-other-habitlogs": {
+          "ruleId": "member-deny-other-habitlogs",
+          "elemType": "FmcHabitLog",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcHabitLog": "select * from FmcHabitLog where memberId!=${userId}"
+          }
+        },
+        "member-read-session": {
+          "ruleId": "member-read-session",
+          "elemType": "FmcSession",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        },
+        "member-deny-other-sessions": {
+          "ruleId": "member-deny-other-sessions",
+          "elemType": "FmcSession",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcSession": "select * from FmcSession where memberId!=${userId}"
+          }
+        },
+        "member-deny-coach-notes": {
+          "ruleId": "member-deny-coach-notes",
+          "elemType": "FmcSession",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "fmcsession.coachnotes": ""
+          }
+        },
+        "member-read-goal": {
+          "ruleId": "member-read-goal",
+          "elemType": "FmcGoal",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        },
+        "member-deny-other-goals": {
+          "ruleId": "member-deny-other-goals",
+          "elemType": "FmcGoal",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcGoal": "select * from FmcGoal where memberId!=${userId}"
+          }
+        },
+        "member-read-subscription": {
+          "ruleId": "member-read-subscription",
+          "elemType": "FmcSubscription",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        },
+        "member-deny-other-subs": {
+          "ruleId": "member-deny-other-subs",
+          "elemType": "FmcSubscription",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcSubscription": "select * from FmcSubscription where memberId!=${userId}"
+          }
+        },
+        "member-read-recipe": {
+          "ruleId": "member-read-recipe",
+          "elemType": "FmcRecipe",
+          "allowed": true,
+          "actions": { "5": true },
+          "attributes": { "*": "*" }
+        },
+        "member-read-own-member": {
+          "ruleId": "member-read-own-member",
+          "elemType": "FmcMember",
+          "allowed": true,
+          "actions": { "2": true, "5": true },
+          "attributes": { "*": "*" }
+        },
+        "member-deny-other-members": {
+          "ruleId": "member-deny-other-members",
+          "elemType": "FmcMember",
+          "allowed": false,
+          "actions": {},
+          "attributes": {
+            "FmcMember": "select * from FmcMember where memberId!=${userId}"
+          }
+        }
+      }
+    }
+  },
+  "users": {
+    "admin": {
+      "userName": "admin",
+      "password": "admin",
+      "roles": { "admin": true }
+    }
+  },
+  "sysconfig": {
+    "dataStoreType": 1,
+    "dataStoreName": "fmc",
+    "logLevel": 3,
+    "webPort": 2773,
+    "queueSize": 100
+  }
+}

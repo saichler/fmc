@@ -1,0 +1,84 @@
+/*
+© 2025 Sharon Aicler (saichler@gmail.com)
+
+Layer 8 Ecosystem is licensed under the Apache License, Version 2.0.
+*/
+/**
+ * Mobile FMC - Header Styles
+ */
+
+.mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--header-height) + var(--sat));
+    padding-top: var(--sat);
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    padding-inline: var(--spacing-md);
+    z-index: 100;
+}
+
+.header-menu-btn {
+    width: var(--touch-target);
+    height: var(--touch-target);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+}
+
+.header-menu-btn:active { background: var(--bg-tertiary); }
+.header-menu-btn svg { width: 24px; height: 24px; stroke-width: 2; }
+
+.header-title {
+    flex: 1;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-left: var(--spacing-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header-logo { display: flex; align-items: center; gap: var(--spacing-sm); }
+.header-logo img { height: 28px; width: auto; }
+.header-logo-text { font-size: var(--font-size-lg); font-weight: 700; color: var(--layer8d-primary); }
+
+.header-actions { display: flex; align-items: center; gap: var(--spacing-xs); }
+
+.header-action-btn {
+    width: var(--touch-target);
+    height: var(--touch-target);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.header-action-btn:active { background: var(--bg-tertiary); color: var(--text-primary); }
+.header-action-btn svg { width: 22px; height: 22px; }
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) 0;
+    margin-bottom: var(--spacing-md);
+}
+
+.page-title { font-size: var(--font-size-xl); font-weight: 700; color: var(--text-primary); }
+.page-subtitle { font-size: var(--font-size-sm); color: var(--text-secondary); margin-top: var(--spacing-xs); }
+.page-actions { display: flex; gap: var(--spacing-sm); }

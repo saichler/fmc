@@ -1,0 +1,183 @@
+# KIND cluster version — uses KIND's built-in standard StorageClass
+# KIND ships with rancher/local-path-provisioner pre-installed as StorageClass "standard"
+# No custom StorageClass definition needed.
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fmc
+  labels:
+    name: fmc
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: fmc
+  name: fmc-vnet
+  labels:
+    app: fmc-vnet
+spec:
+  serviceName: fmc-vnet
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fmc-vnet
+  template:
+    metadata:
+      labels:
+        app: fmc-vnet
+    spec:
+      hostNetwork: true
+      containers:
+        - name: fmc-vnet
+          image: saichler/fmc-vnet:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 34999
+          volumeMounts:
+            - name: hdata
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: hdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 5Gi
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: fmc
+  name: fmc
+  labels:
+    app: fmc
+spec:
+  serviceName: fmc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fmc
+  template:
+    metadata:
+      labels:
+        app: fmc
+    spec:
+      containers:
+        - name: fmc
+          image: saichler/fmc:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          volumeMounts:
+            - name: hdata
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: hdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 10Gi
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: fmc
+  name: fmc-web
+  labels:
+    app: fmc-web
+spec:
+  serviceName: fmc-web
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fmc-web
+  template:
+    metadata:
+      labels:
+        app: fmc-web
+    spec:
+      hostNetwork: true
+      containers:
+        - name: fmc-web
+          image: saichler/fmc-web:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          volumeMounts:
+            - name: hdata
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: hdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 2Gi
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: fmc
+  name: fmc-member-web
+  labels:
+    app: fmc-member-web
+spec:
+  serviceName: fmc-member-web
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fmc-member-web
+  template:
+    metadata:
+      labels:
+        app: fmc-member-web
+    spec:
+      hostNetwork: true
+      containers:
+        - name: fmc-member-web
+          image: saichler/fmc-member-web:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          volumeMounts:
+            - name: hdata
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: hdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 2Gi

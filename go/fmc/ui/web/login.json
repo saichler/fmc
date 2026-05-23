@@ -1,0 +1,17 @@
+{
+    "login": {
+        "appTitle": "FitMate Coach",
+        "appDescription": "Coach Portal",
+        "authEndpoint": "/auth",
+        "redirectUrl": "/app.html",
+        "showRememberMe": true,
+        "showRegister": false,
+        "sessionTimeout": 30,
+        "tfaEnabled": false
+    },
+    "app": {
+        "dateFormat": "mm/dd/yyyy",
+        "apiPrefix": "/fmc",
+        "healthPath": "/0/Health"
+    }
+}

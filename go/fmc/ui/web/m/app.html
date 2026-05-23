@@ -1,0 +1,281 @@
+<!--
+© 2025 Sharon Aicler (saichler@gmail.com)
+
+Layer 8 Ecosystem is licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0ea5e9">
+    <title>FitMate Coach - Mobile</title>
+
+    <!-- CSS: Theme -->
+    <link rel="stylesheet" href="../l8ui/shared/layer8d-theme-tokens.css">
+    <link rel="stylesheet" href="../l8ui/shared/layer8d-theme.css">
+    <link rel="stylesheet" href="../l8ui/shared/layer8d-animations.css">
+    <link rel="stylesheet" href="../l8ui/shared/layer8d-scrollbar.css">
+    <link rel="stylesheet" href="../l8ui/shared/layer8-print.css">
+
+    <!-- CSS: Section Layout -->
+    <link rel="stylesheet" href="../l8ui/shared/layer8-section-layout.css">
+    <link rel="stylesheet" href="../l8ui/shared/layer8-section-responsive.css">
+
+    <!-- CSS: Project-specific -->
+    <link rel="stylesheet" href="css/app-base.css">
+    <link rel="stylesheet" href="css/app-header.css">
+    <link rel="stylesheet" href="css/app-nav.css">
+    <link rel="stylesheet" href="css/app-sidebar.css">
+
+    <!-- CSS: Mobile Components -->
+    <link rel="stylesheet" href="../l8ui/m/css/layer8m-popup.css">
+    <link rel="stylesheet" href="../l8ui/m/css/layer8m-confirm.css">
+    <link rel="stylesheet" href="../l8ui/m/css/layer8m-table.css">
+    <link rel="stylesheet" href="../l8ui/m/css/layer8m-edit-table.css">
+    <link rel="stylesheet" href="../l8ui/m/css/layer8m-forms.css">
+    <link rel="stylesheet" href="../l8ui/m/css/layer8m-forms-tabs.css">
+    <link rel="stylesheet" href="../l8ui/shared/layer8d-form-fields.css">
+    <link rel="stylesheet" href="../l8ui/shared/layer8-file-upload.css">
+    <link rel="stylesheet" href="../l8ui/m/css/layer8m-datepicker.css">
+    <link rel="stylesheet" href="../l8ui/m/css/layer8m-reference-picker.css">
+    <link rel="stylesheet" href="../l8ui/m/css/layer8m-nav-cards.css">
+
+    <!-- CSS: View System -->
+    <link rel="stylesheet" href="../l8ui/shared/layer8-view-switcher.css">
+    <link rel="stylesheet" href="../l8ui/shared/layer8-markdown.css">
+
+    <!-- CSS: SYS Module -->
+    <link rel="stylesheet" href="../l8ui/sys/l8sys.css">
+    <link rel="stylesheet" href="../l8ui/sys/health/l8health.css">
+    <link rel="stylesheet" href="../l8ui/sys/modules/l8sys-modules.css">
+    <link rel="stylesheet" href="../l8ui/sys/dataimport/l8dataimport.css">
+
+    <!-- CSS: Toggle Tree -->
+    <link rel="stylesheet" href="../l8ui/shared/layer8d-toggle-tree.css">
+
+    <!-- CSS: Notification -->
+    <link rel="stylesheet" href="../l8ui/notification/layer8d-notification.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <button class="header-menu-btn" id="menu-toggle" aria-label="Menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="header-logo">
+                <img src="../l8ui/images/logo.gif" alt="FitMate Coach">
+                <span class="header-logo-text">FitMate Coach</span>
+            </div>
+
+            <div class="header-actions">
+                <div class="layer8d-theme-picker">
+                    <button class="header-action-btn" onclick="Layer8DThemeSwitcher.toggle()" title="Toggle theme">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </button>
+                </div>
+                <button class="header-action-btn" id="refresh-btn" title="Refresh">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- Mobile Sidebar -->
+        <nav class="mobile-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../l8ui/images/logo.gif" alt="FitMate Coach">
+                    <span class="sidebar-logo-text">FitMate Coach</span>
+                </div>
+            </div>
+
+            <div class="sidebar-nav">
+                <a href="#dashboard" class="sidebar-item active" data-section="dashboard">Dashboard</a>
+                <a href="#core" class="sidebar-item" data-section="dashboard" data-module="core">Members & Coaches</a>
+                <a href="#coaching" class="sidebar-item" data-section="dashboard" data-module="coaching">Coaching</a>
+                <a href="#nutrition" class="sidebar-item" data-section="dashboard" data-module="nutrition">Nutrition</a>
+                <a href="#progress" class="sidebar-item" data-section="dashboard" data-module="progress">Progress</a>
+                <a href="#billing" class="sidebar-item" data-section="dashboard" data-module="billing">Billing</a>
+                <a href="#system" class="sidebar-item" data-section="system" data-module="system">System</a>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="sidebar-user-info">
+                    <div class="sidebar-avatar" id="user-avatar">A</div>
+                    <div class="sidebar-user-details">
+                        <div class="sidebar-user-name" id="user-name">Admin</div>
+                        <div class="sidebar-user-role">FMC Coach Portal</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout-btn" onclick="MobileApp.logout()">Sign Out</button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div id="content-area">
+                <div class="loading">Loading...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JS: Theme Switcher -->
+    <script src="../l8ui/shared/layer8d-theme-switcher.js"></script>
+
+    <!-- JS: Layer8 Mobile Core -->
+    <script src="../l8ui/m/js/layer8m-config.js"></script>
+    <script src="../l8ui/m/js/layer8m-auth.js"></script>
+    <script src="../l8ui/m/js/layer8m-utils.js"></script>
+
+    <!-- JS: Notification -->
+    <script src="../l8ui/notification/layer8d-notification.js"></script>
+
+    <!-- JS: Shared Desktop Utilities -->
+    <script src="../l8ui/shared/layer8d-config.js"></script>
+    <script src="../l8ui/shared/layer8d-utils.js"></script>
+    <script src="../l8ui/shared/layer8d-renderers.js"></script>
+    <script src="../l8ui/shared/layer8d-reference-registry.js"></script>
+
+    <!-- JS: Factory Components -->
+    <script src="../l8ui/shared/layer8-enum-factory.js"></script>
+    <script src="../l8ui/shared/layer8-ref-factory.js"></script>
+    <script src="../l8ui/shared/layer8-column-factory.js"></script>
+    <script src="../l8ui/shared/layer8-form-factory.js"></script>
+    <script src="../l8ui/shared/layer8-form-factory-presets.js"></script>
+
+    <!-- JS: Mobile Module Registry Factory -->
+    <script src="../l8ui/m/js/layer8m-module-registry.js"></script>
+
+    <!-- JS: Mobile Components -->
+    <script src="../l8ui/m/js/layer8m-popup.js"></script>
+    <script src="../l8ui/m/js/layer8m-confirm.js"></script>
+    <script src="../l8ui/m/js/layer8m-data-source.js"></script>
+    <script src="../l8ui/m/js/layer8m-table.js"></script>
+    <script src="../l8ui/m/js/layer8m-edit-table.js"></script>
+    <script src="../l8ui/m/js/layer8m-table-touch.js"></script>
+
+    <!-- JS: File Upload -->
+    <script src="../l8ui/shared/layer8-file-upload.js"></script>
+
+    <!-- JS: View System -->
+    <script src="../l8ui/m/js/layer8m-view-factory.js"></script>
+    <script src="../l8ui/shared/layer8d-data-source.js"></script>
+    <script src="../l8ui/shared/layer8-view-switcher.js"></script>
+    <script src="../l8ui/m/js/layer8m-chart.js"></script>
+    <script src="../l8ui/m/js/layer8m-kanban.js"></script>
+    <script src="../l8ui/m/js/layer8m-timeline.js"></script>
+    <script src="../l8ui/m/js/layer8m-calendar.js"></script>
+    <script src="../l8ui/m/js/layer8m-tree-grid.js"></script>
+    <script src="../l8ui/m/js/layer8m-gantt.js"></script>
+    <script src="../l8ui/m/js/layer8m-wizard.js"></script>
+
+    <!-- JS: Format Display -->
+    <script src="../l8ui/shared/layer8-format-display.js"></script>
+
+    <!-- JS: Forms -->
+    <script src="../l8ui/m/js/layer8m-forms-fields.js"></script>
+    <script src="../l8ui/m/js/layer8m-forms-fields-reference.js"></script>
+    <script src="../l8ui/m/js/layer8m-forms-fields-ext.js"></script>
+    <script src="../l8ui/m/js/layer8m-forms.js"></script>
+    <script src="../l8ui/m/js/layer8m-forms-inline.js"></script>
+
+    <!-- JS: Date Picker -->
+    <script src="../l8ui/m/js/layer8m-datepicker.js"></script>
+
+    <!-- JS: Reference Registry + Picker -->
+    <script src="../l8ui/m/js/layer8m-reference-registry.js"></script>
+    <script src="js/fmc-reference-registry.js"></script>
+    <script src="../l8ui/m/js/layer8m-reference-picker.js"></script>
+
+    <!-- JS: Renderers -->
+    <script src="../l8ui/m/js/layer8m-renderers.js"></script>
+
+    <!-- JS: Shared Utilities -->
+    <script src="../l8ui/shared/layer8-markdown.js"></script>
+    <script src="../l8ui/shared/layer8-csv-export.js"></script>
+
+    <!-- JS: FMC Module Data (desktop enums/columns/forms shared with mobile) -->
+    <!-- Core -->
+    <script src="../fmc-ui/core/people-enums.js"></script>
+    <script src="../fmc-ui/core/people-columns.js"></script>
+    <script src="../fmc-ui/core/people-forms.js"></script>
+    <script src="js/core/core-index.js"></script>
+
+    <!-- Coaching -->
+    <script src="../fmc-ui/coaching/mgmt-enums.js"></script>
+    <script src="../fmc-ui/coaching/mgmt-columns.js"></script>
+    <script src="../fmc-ui/coaching/mgmt-forms.js"></script>
+    <script src="js/coaching/coaching-index.js"></script>
+
+    <!-- Nutrition -->
+    <script src="../fmc-ui/nutrition/food-enums.js"></script>
+    <script src="../fmc-ui/nutrition/food-columns.js"></script>
+    <script src="../fmc-ui/nutrition/food-forms.js"></script>
+    <script src="js/nutrition/nutrition-index.js"></script>
+
+    <!-- Progress -->
+    <script src="../fmc-ui/progress/tracking-enums.js"></script>
+    <script src="../fmc-ui/progress/tracking-columns.js"></script>
+    <script src="../fmc-ui/progress/tracking-forms.js"></script>
+    <script src="js/progress/progress-index.js"></script>
+
+    <!-- Billing -->
+    <script src="../fmc-ui/billing/finance-enums.js"></script>
+    <script src="../fmc-ui/billing/finance-columns.js"></script>
+    <script src="../fmc-ui/billing/finance-forms.js"></script>
+    <script src="js/billing/billing-index.js"></script>
+
+    <!-- JS: Toggle Tree + Module Filter -->
+    <script src="../l8ui/shared/layer8d-toggle-tree.js"></script>
+    <script src="../l8ui/shared/layer8d-module-filter.js"></script>
+    <script src="../l8ui/sys/modules/l8sys-modules.js"></script>
+
+    <!-- JS: SYS Module -->
+    <script src="../l8ui/sys/security/l8security-enums.js"></script>
+    <script src="../l8ui/sys/security/l8security-columns.js"></script>
+    <script src="../l8ui/sys/security/l8security-forms.js"></script>
+    <script src="../l8ui/sys/dataimport/l8dataimport.js"></script>
+    <script src="../l8ui/sys/dataimport/l8dataimport-templates.js"></script>
+    <script src="../l8ui/sys/dataimport/l8dataimport-transfer.js"></script>
+    <script src="../l8ui/sys/dataimport/l8dataimport-execute.js"></script>
+
+    <!-- JS: Navigation Core -->
+    <script src="../l8ui/m/js/layer8m-nav-crud.js"></script>
+    <script src="../l8ui/m/js/layer8m-nav-data.js"></script>
+    <script src="../l8ui/m/js/layer8m-nav.js"></script>
+
+    <!-- JS: Navigation Config -->
+    <script src="js/fmc-nav-config.js"></script>
+
+    <!-- JS: App -->
+    <script src="js/app-core.js"></script>
+</body>
+</html>

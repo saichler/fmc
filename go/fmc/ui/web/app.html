@@ -1,0 +1,343 @@
+<!--
+© 2025 Sharon Aicler (saichler@gmail.com)
+
+Layer 8 Ecosystem is licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>FitMate Coach</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Theme (tokens first, then fonts + shared classes) -->
+    <link rel="stylesheet" href="l8ui/shared/layer8d-theme-tokens.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8d-theme.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8d-animations.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8d-scrollbar.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8-print.css" media="print">
+    <!-- Generic Section Layout (shared by all modules) -->
+    <link rel="stylesheet" href="l8ui/shared/layer8-section-layout.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8-section-responsive.css">
+    <link rel="stylesheet" href="css/base-core.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Component Styles -->
+    <link rel="stylesheet" href="l8ui/edit_table/layer8d-table.css">
+    <link rel="stylesheet" href="l8ui/chart/layer8d-chart.css">
+    <link rel="stylesheet" href="l8ui/kanban/layer8d-kanban.css">
+    <link rel="stylesheet" href="l8ui/timeline/layer8d-timeline.css">
+    <link rel="stylesheet" href="l8ui/calendar/layer8d-calendar.css">
+    <link rel="stylesheet" href="l8ui/tree_grid/layer8d-tree-grid.css">
+    <link rel="stylesheet" href="l8ui/gantt/layer8d-gantt.css">
+    <link rel="stylesheet" href="l8ui/wizard/layer8d-wizard.css">
+    <link rel="stylesheet" href="l8ui/dashboard/layer8d-widget.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8-view-switcher.css">
+    <!-- Markdown Renderer -->
+    <link rel="stylesheet" href="l8ui/shared/layer8-markdown.css">
+    <!-- SYS Module Styles -->
+    <link rel="stylesheet" href="l8ui/sys/l8sys.css">
+    <link rel="stylesheet" href="l8ui/sys/health/l8health.css">
+    <link rel="stylesheet" href="l8ui/sys/modules/l8sys-modules.css">
+    <link rel="stylesheet" href="l8ui/sys/logs/l8logs.css">
+    <link rel="stylesheet" href="l8ui/sys/dataimport/l8dataimport.css">
+    <!-- Toggle Tree Component -->
+    <link rel="stylesheet" href="l8ui/shared/layer8d-toggle-tree.css">
+    <!-- Popup Component -->
+    <link rel="stylesheet" href="l8ui/popup/layer8d-popup.css">
+    <link rel="stylesheet" href="l8ui/popup/layer8d-popup-forms.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8d-form-fields.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8-file-upload.css">
+    <link rel="stylesheet" href="l8ui/popup/layer8d-popup-inline-table.css">
+    <link rel="stylesheet" href="l8ui/popup/layer8d-popup-content.css">
+    <!-- Date Picker Component -->
+    <link rel="stylesheet" href="l8ui/datepicker/layer8d-datepicker.css">
+    <!-- Reference Picker Component -->
+    <link rel="stylesheet" href="l8ui/reference_picker/layer8d-reference-picker.css">
+    <!-- Input Formatter Component -->
+    <link rel="stylesheet" href="l8ui/input_formatters/layer8d-input-formatter.css">
+    <!-- Notification Component -->
+    <link rel="stylesheet" href="l8ui/notification/layer8d-notification.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <!-- Header Background Illustration -->
+            <svg class="header-illustration" viewBox="0 0 1920 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="headerNodeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:0.3" />
+                        <stop offset="100%" style="stop-color:#0284c7;stop-opacity:0.2" />
+                    </linearGradient>
+                </defs>
+                <!-- Decorative network lines -->
+                <path d="M 0,30 Q 200,10 400,30 T 800,30" fill="none" stroke="rgba(14, 165, 233, 0.15)" stroke-width="1.5"/>
+                <path d="M 1920,30 Q 1720,50 1520,30 T 1120,30" fill="none" stroke="rgba(14, 165, 233, 0.15)" stroke-width="1.5"/>
+                <!-- Small animated dots -->
+                <circle cx="200" cy="20" r="2" fill="rgba(14, 165, 233, 0.5)">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="600" cy="25" r="2" fill="rgba(14, 165, 233, 0.5)">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="4s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="1300" cy="40" r="2" fill="rgba(14, 165, 233, 0.5)">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="3.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="1700" cy="35" r="2" fill="rgba(14, 165, 233, 0.5)">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="4.5s" repeatCount="indefinite"/>
+                </circle>
+                <!-- Small server icons on edges -->
+                <rect x="50" y="25" width="4" height="10" rx="1" fill="url(#headerNodeGradient)"/>
+                <rect x="1860" y="25" width="4" height="10" rx="1" fill="url(#headerNodeGradient)"/>
+            </svg>
+
+            <div class="header-left">
+                <img src="l8ui/images/logo.gif" alt="FitMate Coach Logo" class="header-logo">
+                <div class="header-title">
+                    <h1>FitMate Coach</h1>
+                    <p class="header-subtitle">Coach Portal</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="powered-by-header">
+                    <span>Powered by</span>
+                    <img src="l8ui/images/Layer8Logo.gif" alt="Layer 8 Ecosystem" class="layer8-header-logo">
+                    <span class="layer8-header-text">Layer 8 Ecosystem</span>
+                </div>
+                <div class="layer8d-theme-picker">
+                    <button class="layer8d-theme-btn" onclick="Layer8DThemeSwitcher.toggleDropdown()" aria-label="Choose theme">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 0 0 0 20V2z"/></svg>
+                    </button>
+                    <div class="layer8d-theme-menu"></div>
+                </div>
+                <div class="user-menu">
+                    <span class="username">Admin</span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li><a href="#" data-section="dashboard" class="nav-link active">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a></li>
+                <li><a href="#" data-section="core" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    <span>Members & Coaches</span>
+                </a></li>
+                <li><a href="#" data-section="coaching" class="nav-link">
+                    <span class="nav-icon">🎯</span>
+                    <span>Coaching</span>
+                </a></li>
+                <li><a href="#" data-section="nutrition" class="nav-link">
+                    <span class="nav-icon">🥗</span>
+                    <span>Nutrition</span>
+                </a></li>
+                <li><a href="#" data-section="progress" class="nav-link">
+                    <span class="nav-icon">📈</span>
+                    <span>Progress</span>
+                </a></li>
+                <li><a href="#" data-section="billing" class="nav-link">
+                    <span class="nav-icon">💳</span>
+                    <span>Billing</span>
+                </a></li>
+                <li><a href="#" data-section="system" class="nav-link">
+                    <span class="nav-icon">⚙️</span>
+                    <span>System</span>
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div id="content-area"></div>
+        </main>
+    </div>
+
+    <!-- Popup Root -->
+    <div id="layer8d-popup-root"></div>
+
+    <script src="js/sections.js"></script>
+    <script src="js/app.js"></script>
+    <!-- Theme Switcher (load before other scripts) -->
+    <script src="l8ui/shared/layer8d-theme-switcher.js"></script>
+    <script>Layer8DThemeSwitcher.init();</script>
+    <!-- Shared Scripts (load first, in order) -->
+    <script src="l8ui/shared/layer8d-config.js"></script>
+    <script src="l8ui/shared/layer8d-utils.js"></script>
+    <script src="l8ui/shared/layer8d-renderers.js"></script>
+    <script src="l8ui/shared/layer8d-reference-registry.js"></script>
+    <!-- Factory Components (load before module scripts) -->
+    <script src="l8ui/shared/layer8-enum-factory.js"></script>
+    <script src="l8ui/shared/layer8-ref-factory.js"></script>
+    <script src="l8ui/shared/layer8-column-factory.js"></script>
+    <script src="l8ui/shared/layer8-form-factory.js"></script>
+    <script src="l8ui/shared/layer8-form-factory-presets.js"></script>
+    <script src="l8ui/shared/layer8-svg-factory.js"></script>
+    <script src="l8ui/shared/layer8d-module-config-factory.js"></script>
+    <script src="l8ui/shared/layer8-section-generator.js"></script>
+    <!-- FMC Reference Registries -->
+    <script src="js/reference-registry-core.js"></script>
+    <script src="js/reference-registry-coaching.js"></script>
+    <script src="js/reference-registry-nutrition.js"></script>
+    <script src="js/reference-registry-billing.js"></script>
+    <!-- Notification Component (load before forms) -->
+    <script src="l8ui/notification/layer8d-notification.js"></script>
+    <!-- Input Formatter Component (load in order, before forms) -->
+    <script src="l8ui/input_formatters/layer8d-input-formatter-utils.js"></script>
+    <script src="l8ui/input_formatters/layer8d-input-formatter-masks.js"></script>
+    <script src="l8ui/input_formatters/layer8d-input-formatter-types-validators.js"></script>
+    <script src="l8ui/input_formatters/layer8d-input-formatter-types.js"></script>
+    <script src="l8ui/input_formatters/layer8d-input-formatter-core.js"></script>
+    <script src="l8ui/input_formatters/layer8d-input-formatter.js"></script>
+    <!-- Forms Component (load in order) -->
+    <script src="l8ui/shared/layer8-format-display.js"></script>
+    <script src="l8ui/shared/layer8d-forms-fields.js"></script>
+    <script src="l8ui/shared/layer8d-forms-fields-ext.js"></script>
+    <script src="l8ui/shared/layer8d-forms-data.js"></script>
+    <script src="l8ui/shared/layer8d-forms-pickers.js"></script>
+    <script src="l8ui/shared/layer8d-forms-modal.js"></script>
+    <script src="l8ui/shared/layer8d-forms.js"></script>
+    <!-- Popup Component -->
+    <script src="l8ui/popup/layer8d-popup.js"></script>
+    <!-- Date Picker Component (load in order) -->
+    <script src="l8ui/datepicker/layer8d-datepicker-utils.js"></script>
+    <script src="l8ui/datepicker/layer8d-datepicker-calendar.js"></script>
+    <script src="l8ui/datepicker/layer8d-datepicker-core.js"></script>
+    <script src="l8ui/datepicker/layer8d-datepicker.js"></script>
+    <!-- Reference Picker Component (load in order) -->
+    <script src="l8ui/reference_picker/layer8d-reference-picker-utils.js"></script>
+    <script src="l8ui/reference_picker/layer8d-reference-picker-data.js"></script>
+    <script src="l8ui/reference_picker/layer8d-reference-picker-render.js"></script>
+    <script src="l8ui/reference_picker/layer8d-reference-picker-events.js"></script>
+    <script src="l8ui/reference_picker/layer8d-reference-picker-core.js"></script>
+    <script src="l8ui/reference_picker/layer8d-reference-picker.js"></script>
+    <!-- Layer8DTable Component (load in order) -->
+    <script src="l8ui/edit_table/layer8d-table-core.js"></script>
+    <script src="l8ui/edit_table/layer8d-table-data.js"></script>
+    <script src="l8ui/edit_table/layer8d-table-render.js"></script>
+    <script src="l8ui/edit_table/layer8d-table-events.js"></script>
+    <script src="l8ui/edit_table/layer8d-table-filter.js"></script>
+    <script src="l8ui/edit_table/layer8d-table.js"></script>
+    <!-- Export -->
+    <script src="l8ui/shared/layer8-csv-export.js"></script>
+    <script src="l8ui/shared/layer8-excel-export.js"></script>
+    <script src="l8ui/shared/layer8-pdf-export.js"></script>
+    <script src="l8ui/shared/layer8-export-helper.js"></script>
+    <script src="l8ui/shared/layer8-file-upload.js"></script>
+    <!-- Data Source & View Factory -->
+    <script src="l8ui/shared/layer8d-data-source.js"></script>
+    <script src="l8ui/shared/layer8d-view-factory.js"></script>
+    <script src="l8ui/shared/layer8-view-switcher.js"></script>
+    <!-- Chart Component -->
+    <script src="l8ui/chart/layer8d-chart-core.js"></script>
+    <script src="l8ui/chart/layer8d-chart-bar.js"></script>
+    <script src="l8ui/chart/layer8d-chart-line.js"></script>
+    <script src="l8ui/chart/layer8d-chart-pie.js"></script>
+    <!-- Kanban Component -->
+    <script src="l8ui/kanban/layer8d-kanban-core.js"></script>
+    <script src="l8ui/kanban/layer8d-kanban-render.js"></script>
+    <script src="l8ui/kanban/layer8d-kanban-events.js"></script>
+    <!-- Timeline Component -->
+    <script src="l8ui/timeline/layer8d-timeline.js"></script>
+    <!-- Calendar Component -->
+    <script src="l8ui/calendar/layer8d-calendar-core.js"></script>
+    <script src="l8ui/calendar/layer8d-calendar-render.js"></script>
+    <script src="l8ui/calendar/layer8d-calendar-events.js"></script>
+    <!-- Tree Grid Component -->
+    <script src="l8ui/tree_grid/layer8d-tree-grid-core.js"></script>
+    <script src="l8ui/tree_grid/layer8d-tree-grid-render.js"></script>
+    <script src="l8ui/tree_grid/layer8d-tree-grid-events.js"></script>
+    <!-- Gantt Component -->
+    <script src="l8ui/gantt/layer8d-gantt-core.js"></script>
+    <script src="l8ui/gantt/layer8d-gantt-render.js"></script>
+    <script src="l8ui/gantt/layer8d-gantt-events.js"></script>
+    <!-- Wizard Component -->
+    <script src="l8ui/wizard/layer8d-wizard-core.js"></script>
+    <script src="l8ui/wizard/layer8d-wizard-render.js"></script>
+    <!-- Dashboard Widget Component -->
+    <script src="l8ui/dashboard/layer8d-widget.js"></script>
+    <!-- Shared Module Abstractions -->
+    <script src="l8ui/shared/layer8d-service-registry.js"></script>
+    <script src="l8ui/shared/layer8d-module-crud.js"></script>
+    <script src="l8ui/shared/layer8d-module-navigation.js"></script>
+    <script src="l8ui/shared/layer8d-toggle-tree.js"></script>
+    <script src="l8ui/shared/layer8d-module-filter.js"></script>
+    <script src="l8ui/shared/layer8d-permission-filter.js"></script>
+    <script src="l8ui/shared/layer8-module-factory-core.js"></script>
+    <script src="l8ui/shared/layer8d-module-factory.js"></script>
+    <!-- FMC Core Module -->
+    <script src="fmc-ui/core/core-section-config.js"></script>
+    <script src="fmc-ui/core/core-config.js"></script>
+    <script src="fmc-ui/core/people-enums.js"></script>
+    <script src="fmc-ui/core/people-columns.js"></script>
+    <script src="fmc-ui/core/people-forms.js"></script>
+    <script src="fmc-ui/core/core-init.js"></script>
+    <!-- FMC Coaching Module -->
+    <script src="fmc-ui/coaching/coaching-section-config.js"></script>
+    <script src="fmc-ui/coaching/coaching-config.js"></script>
+    <script src="fmc-ui/coaching/mgmt-enums.js"></script>
+    <script src="fmc-ui/coaching/mgmt-columns.js"></script>
+    <script src="fmc-ui/coaching/mgmt-forms.js"></script>
+    <script src="fmc-ui/coaching/coaching-init.js"></script>
+    <!-- FMC Nutrition Module -->
+    <script src="fmc-ui/nutrition/nutrition-section-config.js"></script>
+    <script src="fmc-ui/nutrition/nutrition-config.js"></script>
+    <script src="fmc-ui/nutrition/food-enums.js"></script>
+    <script src="fmc-ui/nutrition/food-columns.js"></script>
+    <script src="fmc-ui/nutrition/food-forms.js"></script>
+    <script src="fmc-ui/nutrition/nutrition-init.js"></script>
+    <!-- FMC Progress Module -->
+    <script src="fmc-ui/progress/progress-section-config.js"></script>
+    <script src="fmc-ui/progress/progress-config.js"></script>
+    <script src="fmc-ui/progress/tracking-enums.js"></script>
+    <script src="fmc-ui/progress/tracking-columns.js"></script>
+    <script src="fmc-ui/progress/tracking-forms.js"></script>
+    <script src="fmc-ui/progress/progress-init.js"></script>
+    <!-- FMC Billing Module -->
+    <script src="fmc-ui/billing/billing-section-config.js"></script>
+    <script src="fmc-ui/billing/billing-config.js"></script>
+    <script src="fmc-ui/billing/finance-enums.js"></script>
+    <script src="fmc-ui/billing/finance-columns.js"></script>
+    <script src="fmc-ui/billing/finance-forms.js"></script>
+    <script src="fmc-ui/billing/billing-init.js"></script>
+    <!-- Markdown Renderer (load before chat components) -->
+    <script src="l8ui/shared/layer8-markdown.js"></script>
+    <!-- SYS Module -->
+    <script src="l8ui/sys/l8sys-config.js"></script>
+    <script src="l8ui/sys/health/l8health.js"></script>
+    <script src="l8ui/sys/security/l8security-enums.js"></script>
+    <script src="l8ui/sys/security/l8security-columns.js"></script>
+    <script src="l8ui/sys/security/l8security-forms.js"></script>
+    <script src="l8ui/sys/security/l8security.js"></script>
+    <script src="l8ui/sys/security/l8security-users-crud.js"></script>
+    <script src="l8ui/sys/security/l8security-roles-crud.js"></script>
+    <script src="l8ui/sys/security/l8security-credentials-crud.js"></script>
+    <script src="l8ui/sys/security/l8security-events-enums.js"></script>
+    <script src="l8ui/sys/security/l8security-events-columns.js"></script>
+    <script src="l8ui/sys/modules/l8sys-dependency-graph.js"></script>
+    <script src="l8ui/sys/modules/l8sys-modules-map.js"></script>
+    <script src="l8ui/sys/modules/l8sys-modules.js"></script>
+    <script src="l8ui/sys/logs/l8logs.js"></script>
+    <script src="l8ui/sys/dataimport/l8dataimport.js"></script>
+    <script src="l8ui/sys/dataimport/l8dataimport-templates.js"></script>
+    <script src="l8ui/sys/dataimport/l8dataimport-transfer.js"></script>
+    <script src="l8ui/sys/dataimport/l8dataimport-execute.js"></script>
+    <script src="l8ui/sys/l8sys-init.js"></script>
+</body>
+</html>

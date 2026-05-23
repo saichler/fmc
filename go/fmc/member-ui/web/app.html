@@ -1,0 +1,78 @@
+<!--
+© 2025 Sharon Aicler (saichler@gmail.com)
+
+Layer 8 Ecosystem is licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0ea5e9">
+    <title>FitMate Coach</title>
+
+    <!-- CSS: Theme -->
+    <link rel="stylesheet" href="l8ui/shared/layer8d-theme-tokens.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8d-theme.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8d-animations.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8d-scrollbar.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8-print.css">
+
+    <!-- CSS: Mobile Components (for popup, forms if needed) -->
+    <link rel="stylesheet" href="l8ui/m/css/layer8m-popup.css">
+    <link rel="stylesheet" href="l8ui/m/css/layer8m-confirm.css">
+    <link rel="stylesheet" href="l8ui/m/css/layer8m-forms.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8d-form-fields.css">
+    <link rel="stylesheet" href="l8ui/shared/layer8-file-upload.css">
+
+    <!-- CSS: Notification -->
+    <link rel="stylesheet" href="l8ui/notification/layer8d-notification.css">
+
+    <!-- CSS: Member Portal -->
+    <link rel="stylesheet" href="css/member.css">
+</head>
+<body>
+    <div class="member-app" id="member-app">
+        <!-- App shell built dynamically by member-app.js -->
+        <div class="member-loading">Loading...</div>
+    </div>
+
+    <!-- JS: Theme Switcher -->
+    <script src="l8ui/shared/layer8d-theme-switcher.js"></script>
+
+    <!-- JS: Shared Utilities -->
+    <script src="l8ui/shared/layer8d-config.js"></script>
+    <script src="l8ui/shared/layer8d-utils.js"></script>
+    <script src="l8ui/shared/layer8d-renderers.js"></script>
+
+    <!-- JS: Notification -->
+    <script src="l8ui/notification/layer8d-notification.js"></script>
+
+    <!-- JS: Mobile Components (popup, confirm, forms) -->
+    <script src="l8ui/m/js/layer8m-config.js"></script>
+    <script src="l8ui/m/js/layer8m-auth.js"></script>
+    <script src="l8ui/m/js/layer8m-utils.js"></script>
+    <script src="l8ui/m/js/layer8m-popup.js"></script>
+    <script src="l8ui/m/js/layer8m-confirm.js"></script>
+
+    <!-- JS: File Upload -->
+    <script src="l8ui/shared/layer8-file-upload.js"></script>
+
+    <!-- JS: Markdown -->
+    <script src="l8ui/shared/layer8-markdown.js"></script>
+
+    <!-- JS: Member Portal -->
+    <script src="js/member-utils.js"></script>
+    <script src="js/member-dashboard.js"></script>
+    <script src="js/member-meal-log.js"></script>
+    <script src="js/member-chat.js"></script>
+    <script src="js/member-progress.js"></script>
+    <script src="js/member-profile.js"></script>
+    <script src="js/member-app.js"></script>
+</body>
+</html>
