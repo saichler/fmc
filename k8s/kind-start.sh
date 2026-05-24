@@ -61,9 +61,9 @@ echo "Loading Docker images into KIND cluster..."
 IMAGES=(
   saichler/fmc-vnet:latest
   saichler/fmc-log-vnet:latest
+  saichler/fmc-log-agent:latest
   saichler/fmc:latest
   saichler/fmc-web:latest
-  saichler/fmc-member-web:latest
 )
 
 for img in "${IMAGES[@]}"; do
@@ -85,7 +85,7 @@ echo "Waiting for fmc-log-vnet to be Ready..."
 kubectl -n fmc rollout status statefulset/fmc-log-vnet --timeout=120s
 
 echo "Phase 2: Waiting for all services to be Ready..."
-for sts in fmc fmc-web fmc-member-web; do
+for sts in fmc fmc-log-agent fmc-web; do
   echo "  Waiting for ${sts}..."
   kubectl -n fmc rollout status statefulset/"${sts}" --timeout=180s
 done

@@ -12,6 +12,10 @@
     "app": {
         "dateFormat": "mm/dd/yyyy",
         "apiPrefix": "/fmc",
-        "healthPath": "/0/Health"
+        "healthPath": "/0/Health",
+        "portals": {
+            "app.html": "Admin / Coach Portal",
+            "member/app.html": "Member Portal"
+        }
     }
 }

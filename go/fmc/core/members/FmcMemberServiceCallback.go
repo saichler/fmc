@@ -1,8 +1,11 @@
 package members
 
 import (
+	"strings"
+
 	l8c "github.com/saichler/l8common/go/common"
 	"github.com/saichler/fmc/go/types/fmc"
+	"github.com/saichler/l8secure/go/types/secure"
 	"github.com/saichler/l8types/go/ifs"
 )
 
@@ -35,11 +38,24 @@ func validateFmcMember(e interface{}, vnic ifs.IVNic) error {
 	return nil
 }
 
+const defaultMemberPassword = "12345678"
+
 func setMemberUserId(e interface{}, action ifs.Action, vnic ifs.IVNic) error {
 	if action != ifs.POST {
 		return nil
 	}
 	member := e.(*fmc.FmcMember)
 	member.UserId = member.Email
-	return nil
+
+	user := &secure.L8User{
+		UserId:        member.MemberId,
+		FullName:      strings.TrimSpace(member.FirstName + " " + member.LastName),
+		Email:         member.Email,
+		AccountStatus: secure.AccountStatus_ACCOUNT_STATUS_ACTIVE,
+		Portal:        "member/app.html",
+		Password:      &secure.L8Password{Hash: defaultMemberPassword},
+		Roles:         map[string]bool{"member": true},
+	}
+	_, err := l8c.PostEntity("users", 73, user, vnic)
+	return err
 }

@@ -126,6 +126,59 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   namespace: fmc
+  name: fmc-log-agent
+  labels:
+    app: fmc-log-agent
+spec:
+  serviceName: fmc-log-agent
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fmc-log-agent
+  template:
+    metadata:
+      labels:
+        app: fmc-log-agent
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: fmc-log-agent
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: fmc-log-agent
+          image: saichler/fmc-log-agent:latest
+          imagePullPolicy: Always
+          env:
+            - name: LOGPATH
+              value: /data/logs/fmc
+            - name: LOGFILE
+              value: "*"
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          volumeMounts:
+            - name: hdata
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: hdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: fmc-local-storage
+        resources:
+          requests:
+            storage: 2Gi
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: fmc
   name: fmc
   labels:
     app: fmc
@@ -219,52 +272,3 @@ spec:
           requests:
             storage: 2Gi
 
----
-
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  namespace: fmc
-  name: fmc-member-web
-  labels:
-    app: fmc-member-web
-spec:
-  serviceName: fmc-member-web
-  replicas: 3
-  selector:
-    matchLabels:
-      app: fmc-member-web
-  template:
-    metadata:
-      labels:
-        app: fmc-member-web
-    spec:
-      hostNetwork: true
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchLabels:
-                  app: fmc-member-web
-              topologyKey: kubernetes.io/hostname
-      containers:
-        - name: fmc-member-web
-          image: saichler/fmc-member-web:latest
-          imagePullPolicy: Always
-          env:
-            - name: NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-          volumeMounts:
-            - name: hdata
-              mountPath: /data
-  volumeClaimTemplates:
-    - metadata:
-        name: hdata
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        storageClassName: fmc-local-storage
-        resources:
-          requests:
-            storage: 2Gi

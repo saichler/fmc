@@ -87,6 +87,46 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   namespace: fmc
+  name: fmc-log-agent
+  labels:
+    app: fmc-log-agent
+spec:
+  selector:
+    matchLabels:
+      app: fmc-log-agent
+  template:
+    metadata:
+      labels:
+        app: fmc-log-agent
+    spec:
+      containers:
+        - name: fmc-log-agent
+          image: saichler/fmc-log-agent:latest
+          imagePullPolicy: Always
+          env:
+            - name: LOGPATH
+              value: /data/logs/fmc
+            - name: LOGFILE
+              value: "*"
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          volumeMounts:
+            - name: hdata
+              mountPath: /data
+      volumes:
+        - name: hdata
+          hostPath:
+            path: /data
+            type: DirectoryOrCreate
+
+---
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  namespace: fmc
   name: fmc
   labels:
     app: fmc
@@ -154,39 +194,3 @@ spec:
             path: /data
             type: DirectoryOrCreate
 
----
-
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  namespace: fmc
-  name: fmc-member-web
-  labels:
-    app: fmc-member-web
-spec:
-  selector:
-    matchLabels:
-      app: fmc-member-web
-  template:
-    metadata:
-      labels:
-        app: fmc-member-web
-    spec:
-      hostNetwork: true
-      containers:
-        - name: fmc-member-web
-          image: saichler/fmc-member-web:latest
-          imagePullPolicy: Always
-          env:
-            - name: NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-          volumeMounts:
-            - name: hdata
-              mountPath: /data
-      volumes:
-        - name: hdata
-          hostPath:
-            path: /data
-            type: DirectoryOrCreate
