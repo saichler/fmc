@@ -6,6 +6,7 @@ import (
 	"github.com/saichler/fmc/go/fmc/notify"
 	"github.com/saichler/fmc/go/fmc/services"
 	"github.com/saichler/l8bus/go/overlay/vnic"
+	evtservices "github.com/saichler/l8events/go/services"
 	"github.com/saichler/l8types/go/ifs"
 	"os"
 	"os/exec"
@@ -27,6 +28,7 @@ func main() {
 	dbname := nic.Resources().SysConfig().DataStoreConfig.Name
 
 	services.ActivateAllServices(dbcred, dbname, nic)
+	evtservices.ActivateEvents(dbcred, dbname, nic)
 	notify.InitEscalations()
 
 	common.WaitForSignal(res)
