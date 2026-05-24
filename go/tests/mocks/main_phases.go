@@ -257,7 +257,7 @@ func createUsersFromService(client *FmcClient, endpoint, model, label string) {
 			"fullName":      fullName,
 			"email":         email,
 			"portal":        portal,
-			"password":      map[string]string{"hash": "Demo123!"},
+			"password":      map[string]string{"hash": "dDemo123!"},
 			"accountStatus": "ACCOUNT_STATUS_ACTIVE",
 			"roles":         roles,
 		}
