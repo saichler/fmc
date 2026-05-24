@@ -34,7 +34,7 @@ spec:
                 fieldRef:
                   fieldPath: status.hostIP
           ports:
-            - containerPort: 34999
+            - containerPort: 10000
           volumeMounts:
             - name: hdata
               mountPath: /data
