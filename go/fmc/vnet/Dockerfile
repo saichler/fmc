@@ -9,7 +9,7 @@ RUN go mod vendor
 WORKDIR /home/src/github.com/saichler/build
 RUN go build -o fmc-vnet
 
-FROM saichler/erp-security:latest AS final
+FROM saichler/fmc-security:latest AS final
 COPY --from=build /home/src/github.com/saichler/build/fmc-vnet /home/run/fmc-vnet
 
 ENTRYPOINT ["/home/run/fmc-vnet"]

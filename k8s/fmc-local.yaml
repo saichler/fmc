@@ -50,6 +50,43 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   namespace: fmc
+  name: fmc-log-vnet
+  labels:
+    app: fmc-log-vnet
+spec:
+  selector:
+    matchLabels:
+      app: fmc-log-vnet
+  template:
+    metadata:
+      labels:
+        app: fmc-log-vnet
+    spec:
+      hostNetwork: true
+      containers:
+        - name: fmc-log-vnet
+          image: saichler/fmc-log-vnet:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          volumeMounts:
+            - name: hdata
+              mountPath: /data
+      volumes:
+        - name: hdata
+          hostPath:
+            path: /data
+            type: DirectoryOrCreate
+
+---
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  namespace: fmc
   name: fmc
   labels:
     app: fmc

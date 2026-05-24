@@ -1,5 +1,7 @@
 set -e
-cd ./fmc/vnet/
+cd ./fmc/log-vnet/
+./build.sh
+cd ../vnet/
 ./build.sh
 cd ../main
 ./build.sh

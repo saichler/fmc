@@ -5,7 +5,7 @@ RUN go mod init
 RUN GOPROXY=direct GOPRIVATE=github.com go mod tidy
 RUN go build -o fmc
 
-FROM saichler/erp-postgres:latest AS final
+FROM saichler/fmc-postgres:latest AS final
 
 COPY --from=build /home/src/github.com/saichler/build/fmc /home/run/fmc
 

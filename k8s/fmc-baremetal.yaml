@@ -76,6 +76,56 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   namespace: fmc
+  name: fmc-log-vnet
+  labels:
+    app: fmc-log-vnet
+spec:
+  serviceName: fmc-log-vnet
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fmc-log-vnet
+  template:
+    metadata:
+      labels:
+        app: fmc-log-vnet
+    spec:
+      hostNetwork: true
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: fmc-log-vnet
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: fmc-log-vnet
+          image: saichler/fmc-log-vnet:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          volumeMounts:
+            - name: hdata
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: hdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: fmc-local-storage
+        resources:
+          requests:
+            storage: 5Gi
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: fmc
   name: fmc
   labels:
     app: fmc

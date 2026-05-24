@@ -46,6 +46,9 @@ nodes:
       - containerPort: 4443
         hostPort: 4443
         protocol: TCP
+      - containerPort: 6767
+        hostPort: 6767
+        protocol: TCP
 EOF
 
 echo "Creating KIND cluster '${CLUSTER_NAME}' (1 control-plane + 1 worker)..."
@@ -57,6 +60,7 @@ kubectl wait --for=condition=Ready nodes --all --timeout=120s
 echo "Loading Docker images into KIND cluster..."
 IMAGES=(
   saichler/fmc-vnet:latest
+  saichler/fmc-log-vnet:latest
   saichler/fmc:latest
   saichler/fmc-web:latest
   saichler/fmc-member-web:latest
@@ -76,6 +80,9 @@ kubectl apply -f "${SCRIPT_DIR}/fmc-kind.yaml"
 
 echo "Waiting for fmc-vnet to be Ready..."
 kubectl -n fmc rollout status statefulset/fmc-vnet --timeout=120s
+
+echo "Waiting for fmc-log-vnet to be Ready..."
+kubectl -n fmc rollout status statefulset/fmc-log-vnet --timeout=120s
 
 echo "Phase 2: Waiting for all services to be Ready..."
 for sts in fmc fmc-web fmc-member-web; do
