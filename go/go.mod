@@ -7,7 +7,6 @@ require (
 	github.com/saichler/l8common v0.0.0-20260505024122-8e5ad212b06b
 	github.com/saichler/l8logfusion v0.0.0-20260320120056-3a3617eed28f
 	github.com/saichler/l8notify v0.0.0-20260404194656-ca373e226b7d
-	github.com/saichler/l8secure v0.0.0-20260523170634-da9b951c38e4
 	github.com/saichler/l8types v0.0.0-20260523165750-476130c0d811
 	github.com/saichler/l8utils v0.0.0-20260523164237-1ceabdf92c0d
 	google.golang.org/protobuf v1.36.11

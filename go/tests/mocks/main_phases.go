@@ -197,21 +197,20 @@ func runPhase6(client *FmcClient, store *MockDataStore) {
 
 func runPhase7(client *FmcClient, store *MockDataStore) {
 	fmt.Printf("=== Phase 7: User Logins ===\n")
-
-	// Member users are auto-provisioned by FmcMemberServiceCallback on POST (Phase 2)
-	createCoachUsers(client)
+	createUsersFromService(client, "/fmc/10/Coach", "FmcCoach", "coach")
+	createUsersFromService(client, "/fmc/10/Member", "FmcMember", "member")
 }
 
-func createCoachUsers(client *FmcClient) {
-	query := `{"text":"select * from FmcCoach"}`
-	body, err := client.Get("/fmc/10/Coach", query)
+func createUsersFromService(client *FmcClient, endpoint, model, label string) {
+	query := `{"text":"select * from ` + model + `"}`
+	body, err := client.Get(endpoint, query)
 	if err != nil {
-		fmt.Printf("  ERROR fetching coaches: %v\n", err)
+		fmt.Printf("  ERROR fetching %ss: %v\n", label, err)
 		return
 	}
 	var result map[string]interface{}
 	if err := json.Unmarshal([]byte(body), &result); err != nil {
-		fmt.Printf("  ERROR parsing coach response: %v\n", err)
+		fmt.Printf("  ERROR parsing %s response: %v\n", label, err)
 		return
 	}
 	list, _ := result["list"].([]interface{})
@@ -226,7 +225,17 @@ func createCoachUsers(client *FmcClient) {
 			continue
 		}
 
-		userIdValue, _ := rec["coachId"].(string)
+		var userIdValue, portal, role string
+		switch label {
+		case "coach":
+			userIdValue, _ = rec["coachId"].(string)
+			portal = "app.html"
+			role = "coach"
+		case "member":
+			userIdValue, _ = rec["memberId"].(string)
+			portal = "member/app.html"
+			role = "member"
+		}
 		if userIdValue == "" {
 			userIdValue = email
 		}
@@ -242,21 +251,22 @@ func createCoachUsers(client *FmcClient) {
 			fullName = email
 		}
 
+		roles := map[string]bool{role: true}
 		userData := map[string]interface{}{
 			"userId":        userIdValue,
 			"fullName":      fullName,
 			"email":         email,
-			"portal":        "app.html",
+			"portal":        portal,
 			"password":      map[string]string{"hash": "12345678"},
 			"accountStatus": "ACCOUNT_STATUS_ACTIVE",
-			"roles":         map[string]bool{"coach": true},
+			"roles":         roles,
 		}
 		if _, err := client.Post("/fmc/73/users", userData); err != nil {
-			fmt.Printf("  FAIL coach: %s -> %v\n", email, err)
+			fmt.Printf("  FAIL %s: %s -> %v\n", label, email, err)
 			failed++
 		} else {
 			success++
 		}
 	}
-	fmt.Printf("  Created %d coach user accounts (%d failed)\n", success, failed)
+	fmt.Printf("  Created %d %s user accounts (%d failed)\n", success, label, failed)
 }
