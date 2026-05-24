@@ -74,7 +74,7 @@
     // Fetch last weight log
     // -------------------------------------------------------------------------
     function _fetchLastWeight(memberId, cb) {
-        var url = _prefix() + '/10/WeightLog' +
+        var url = _prefix() + '/40/WeightLog' +
                   MemberUtils.buildQuery('FmcWeightLog', 'memberId=' + memberId, 1, 0, 'logDate', true);
         MemberUtils.authGet(url).then(function (data) {
             var list = _items(data);

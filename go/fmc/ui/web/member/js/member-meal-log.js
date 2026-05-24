@@ -66,9 +66,9 @@
             meal.calories, meal.proteinG, meal.carbsG, meal.fatG
         );
         return '<div class="meal-macro-bar" title="Protein ' + pct.protein + '% / Carbs ' + pct.carbs + '% / Fat ' + pct.fat + '%">' +
-               '<div class="meal-macro-protein" style="width:' + pct.protein + '%"></div>' +
-               '<div class="meal-macro-carbs"   style="width:' + pct.carbs   + '%"></div>' +
-               '<div class="meal-macro-fat"      style="width:' + pct.fat    + '%"></div>' +
+               '<div class="protein" style="width:' + pct.protein + '%"></div>' +
+               '<div class="carbs"   style="width:' + pct.carbs   + '%"></div>' +
+               '<div class="fat"      style="width:' + pct.fat    + '%"></div>' +
                '</div>';
     }
 
@@ -272,7 +272,7 @@
     // -------------------------------------------------------------------------
     function _renderForm() {
         var typeBtns = Object.keys(MEAL_TYPE).filter(function (k) { return k > 0; }).map(function (k) {
-            var active = Number(k) === _selectedType ? ' meal-type-active' : '';
+            var active = Number(k) === _selectedType ? ' active' : '';
             return '<button class="meal-type-btn' + active + '" data-type="' + k + '">' + MEAL_TYPE[k] + '</button>';
         }).join('');
 
@@ -305,7 +305,7 @@
             btn.addEventListener('click', function () {
                 _selectedType = Number(btn.getAttribute('data-type'));
                 _container.querySelectorAll('.meal-type-btn').forEach(function (b) {
-                    b.classList.toggle('meal-type-active', b === btn);
+                    b.classList.toggle('active', b === btn);
                 });
             });
         });

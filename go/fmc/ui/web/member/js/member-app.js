@@ -60,7 +60,7 @@
     // -------------------------------------------------------------------------
     function _checkAuth() {
         if (!sessionStorage.getItem('bearerToken')) {
-            window.location.href = 'l8ui/login/index.html';
+            window.location.href = '../l8ui/login/index.html';
             return false;
         }
         return true;
@@ -81,13 +81,13 @@
     // -------------------------------------------------------------------------
     function _buildShell() {
         document.body.innerHTML =
-            '<div class="member-shell">' +
+            '<div class="member-app">' +
                 '<header class="member-header">' +
                     '<span class="member-header-logo">&#127868;</span>' +
                     '<span class="member-header-title">FitMate Coach</span>' +
                 '</header>' +
                 '<main class="member-content"></main>' +
-                '<nav class="member-tabbar">' + _buildTabBar() + '</nav>' +
+                '<nav class="member-tab-bar">' + _buildTabBar() + '</nav>' +
             '</div>';
     }
 
@@ -104,7 +104,7 @@
     // Tab navigation
     // -------------------------------------------------------------------------
     function _attachTabEvents() {
-        var tabbar = document.querySelector('.member-tabbar');
+        var tabbar = document.querySelector('.member-tab-bar');
         if (!tabbar) return;
         tabbar.addEventListener('click', function (e) {
             var btn = e.target.closest('.member-tab');
@@ -385,7 +385,7 @@
         switchTab : _switchTab,
         logout    : function () {
             sessionStorage.clear();
-            window.location.href = 'l8ui/login/index.html';
+            window.location.href = '../l8ui/login/index.html';
         }
     };
 

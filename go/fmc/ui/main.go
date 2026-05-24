@@ -4,6 +4,7 @@ import (
 	l8c "github.com/saichler/l8common/go/common"
 	"github.com/saichler/fmc/go/types/fmc"
 	"github.com/saichler/l8types/go/ifs"
+	l8events "github.com/saichler/l8types/go/types/l8events"
 )
 
 func main() {
@@ -25,4 +26,5 @@ func registerFmcTypes(resources ifs.IResources) {
 	l8c.RegisterType(resources, &fmc.FmcSubscription{}, &fmc.FmcSubscriptionList{}, "SubscriptionId")
 	l8c.RegisterType(resources, &fmc.FmcPartner{}, &fmc.FmcPartnerList{}, "PartnerId")
 	l8c.RegisterType(resources, &fmc.FmcToolResponse{}, &fmc.FmcToolResponseList{}, "ToolName")
+	l8c.RegisterType(resources, &l8events.EventRecord{}, &l8events.EventRecordList{}, "EventId")
 }
