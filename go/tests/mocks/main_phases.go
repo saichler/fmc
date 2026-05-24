@@ -21,7 +21,7 @@ func runPhase1(client *FmcClient, store *MockDataStore) {
 	fmt.Printf("=== Phase 1: Coaches, Programs, Partners ===\n")
 
 	coaches := generateCoaches()
-	_, err := client.Post("/fmc/10/Coach", &fmc.FmcCoachList{List: coaches})
+	_, err := client.Post("/web/10/Coach", &fmc.FmcCoachList{List: coaches})
 	if err != nil {
 		fmt.Printf("  ERROR creating Coaches: %v\n", err)
 	} else {
@@ -32,7 +32,7 @@ func runPhase1(client *FmcClient, store *MockDataStore) {
 	}
 
 	programs := generatePrograms()
-	_, err = client.Post("/fmc/20/Program", &fmc.FmcProgramList{List: programs})
+	_, err = client.Post("/web/20/Program", &fmc.FmcProgramList{List: programs})
 	if err != nil {
 		fmt.Printf("  ERROR creating Programs: %v\n", err)
 	} else {
@@ -43,7 +43,7 @@ func runPhase1(client *FmcClient, store *MockDataStore) {
 	}
 
 	partners := generatePartners()
-	_, err = client.Post("/fmc/50/Partner", &fmc.FmcPartnerList{List: partners})
+	_, err = client.Post("/web/50/Partner", &fmc.FmcPartnerList{List: partners})
 	if err != nil {
 		fmt.Printf("  ERROR creating Partners: %v\n", err)
 	} else {
@@ -63,7 +63,7 @@ func runPhase2(client *FmcClient, store *MockDataStore) {
 	}
 
 	members := generateMembers(store)
-	_, err := client.Post("/fmc/10/Member", &fmc.FmcMemberList{List: members})
+	_, err := client.Post("/web/10/Member", &fmc.FmcMemberList{List: members})
 	if err != nil {
 		fmt.Printf("  ERROR creating Members: %v\n", err)
 	} else {
@@ -83,7 +83,7 @@ func runPhase3(client *FmcClient, store *MockDataStore) {
 	}
 
 	sessions := generateSessions(store)
-	_, err := client.Post("/fmc/20/Session", &fmc.FmcSessionList{List: sessions})
+	_, err := client.Post("/web/20/Session", &fmc.FmcSessionList{List: sessions})
 	if err != nil {
 		fmt.Printf("  ERROR creating Sessions: %v\n", err)
 	} else {
@@ -94,7 +94,7 @@ func runPhase3(client *FmcClient, store *MockDataStore) {
 	}
 
 	goals := generateGoals(store)
-	_, err = client.Post("/fmc/20/Goal", &fmc.FmcGoalList{List: goals})
+	_, err = client.Post("/web/20/Goal", &fmc.FmcGoalList{List: goals})
 	if err != nil {
 		fmt.Printf("  ERROR creating Goals: %v\n", err)
 	} else {
@@ -105,7 +105,7 @@ func runPhase3(client *FmcClient, store *MockDataStore) {
 	}
 
 	messages := generateMessages(store)
-	_, err = client.Post("/fmc/20/Message", &fmc.FmcMessageList{List: messages})
+	_, err = client.Post("/web/20/Message", &fmc.FmcMessageList{List: messages})
 	if err != nil {
 		fmt.Printf("  ERROR creating Messages: %v\n", err)
 	} else {
@@ -117,7 +117,7 @@ func runPhase4(client *FmcClient, store *MockDataStore) {
 	fmt.Printf("=== Phase 4: Recipes, Meals ===\n")
 
 	recipes := generateRecipes()
-	_, err := client.Post("/fmc/30/Recipe", &fmc.FmcRecipeList{List: recipes})
+	_, err := client.Post("/web/30/Recipe", &fmc.FmcRecipeList{List: recipes})
 	if err != nil {
 		fmt.Printf("  ERROR creating Recipes: %v\n", err)
 	} else {
@@ -133,7 +133,7 @@ func runPhase4(client *FmcClient, store *MockDataStore) {
 	}
 
 	meals := generateMeals(store)
-	_, err = client.Post("/fmc/30/Meal", &fmc.FmcMealList{List: meals})
+	_, err = client.Post("/web/30/Meal", &fmc.FmcMealList{List: meals})
 	if err != nil {
 		fmt.Printf("  ERROR creating Meals: %v\n", err)
 	} else {
@@ -153,7 +153,7 @@ func runPhase5(client *FmcClient, store *MockDataStore) {
 	}
 
 	weightLogs := generateWeightLogs(store)
-	_, err := client.Post("/fmc/40/WeightLog", &fmc.FmcWeightLogList{List: weightLogs})
+	_, err := client.Post("/web/40/WeightLog", &fmc.FmcWeightLogList{List: weightLogs})
 	if err != nil {
 		fmt.Printf("  ERROR creating Weight Logs: %v\n", err)
 	} else {
@@ -164,7 +164,7 @@ func runPhase5(client *FmcClient, store *MockDataStore) {
 	}
 
 	habitLogs := generateHabitLogs(store)
-	_, err = client.Post("/fmc/40/HabitLog", &fmc.FmcHabitLogList{List: habitLogs})
+	_, err = client.Post("/web/40/HabitLog", &fmc.FmcHabitLogList{List: habitLogs})
 	if err != nil {
 		fmt.Printf("  ERROR creating Habit Logs: %v\n", err)
 	} else {
@@ -184,7 +184,7 @@ func runPhase6(client *FmcClient, store *MockDataStore) {
 	}
 
 	subs := generateSubscriptions(store)
-	_, err := client.Post("/fmc/50/Subscript", &fmc.FmcSubscriptionList{List: subs})
+	_, err := client.Post("/web/50/Subscript", &fmc.FmcSubscriptionList{List: subs})
 	if err != nil {
 		fmt.Printf("  ERROR creating Subscriptions: %v\n", err)
 	} else {
@@ -197,8 +197,8 @@ func runPhase6(client *FmcClient, store *MockDataStore) {
 
 func runPhase7(client *FmcClient, store *MockDataStore) {
 	fmt.Printf("=== Phase 7: User Logins ===\n")
-	createUsersFromService(client, "/fmc/10/Coach", "FmcCoach", "coach")
-	createUsersFromService(client, "/fmc/10/Member", "FmcMember", "member")
+	createUsersFromService(client, "/web/10/Coach", "FmcCoach", "coach")
+	createUsersFromService(client, "/web/10/Member", "FmcMember", "member")
 }
 
 func createUsersFromService(client *FmcClient, endpoint, model, label string) {
@@ -257,11 +257,11 @@ func createUsersFromService(client *FmcClient, endpoint, model, label string) {
 			"fullName":      fullName,
 			"email":         email,
 			"portal":        portal,
-			"password":      map[string]string{"hash": "12345678"},
+			"password":      map[string]string{"hash": "Demo123!"},
 			"accountStatus": "ACCOUNT_STATUS_ACTIVE",
 			"roles":         roles,
 		}
-		if _, err := client.Post("/fmc/73/users", userData); err != nil {
+		if _, err := client.Post("/web/73/users", userData); err != nil {
 			fmt.Printf("  FAIL %s: %s -> %v\n", label, email, err)
 			failed++
 		} else {

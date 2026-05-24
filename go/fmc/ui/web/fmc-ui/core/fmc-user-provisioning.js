@@ -2,7 +2,7 @@
     'use strict';
 
     var USERS_ENDPOINT = '/73/users';
-    var DEFAULT_PASSWORD = '12345678';
+    var DEFAULT_PASSWORD = 'Demo123!';
 
     function getHeaders() {
         return Object.assign({ 'Content-Type': 'application/json' },
