@@ -12,10 +12,9 @@ const (
 )
 
 func Activate(creds, dbname string, vnic ifs.IVNic) {
-	l8c.ActivateService(l8c.ServiceConfig{
-		ServiceName: ServiceName, ServiceArea: ServiceArea,
-		PrimaryKey: "CoachId", Callback: newFmcCoachServiceCallback(),
-	}, &fmc.FmcCoach{}, &fmc.FmcCoachList{}, creds, dbname, vnic)
+	sla := l8c.NewOrmSLA(ServiceName, ServiceArea, "CoachId", newFmcCoachServiceCallback(),
+		&fmc.FmcCoach{}, &fmc.FmcCoachList{})
+	l8c.ActivateService(sla, creds, dbname, vnic)
 }
 
 func Coaches(vnic ifs.IVNic) (ifs.IServiceHandler, bool) {

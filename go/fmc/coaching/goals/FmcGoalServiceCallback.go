@@ -6,7 +6,7 @@ import (
 	l8c "github.com/saichler/l8common/go/common"
 	"github.com/saichler/fmc/go/fmc/notify"
 	"github.com/saichler/fmc/go/types/fmc"
-	ntf "github.com/saichler/l8notify/go/types/l8notify"
+	ntf "github.com/saichler/l8types/go/types/l8notify"
 	"github.com/saichler/l8types/go/ifs"
 )
 

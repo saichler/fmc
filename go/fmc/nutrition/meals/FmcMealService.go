@@ -12,10 +12,9 @@ const (
 )
 
 func Activate(creds, dbname string, vnic ifs.IVNic) {
-	l8c.ActivateService(l8c.ServiceConfig{
-		ServiceName: ServiceName, ServiceArea: ServiceArea,
-		PrimaryKey: "MealId", Callback: newFmcMealServiceCallback(),
-	}, &fmc.FmcMeal{}, &fmc.FmcMealList{}, creds, dbname, vnic)
+	sla := l8c.NewOrmSLA(ServiceName, ServiceArea, "MealId", newFmcMealServiceCallback(),
+		&fmc.FmcMeal{}, &fmc.FmcMealList{})
+	l8c.ActivateService(sla, creds, dbname, vnic)
 }
 
 func Meals(vnic ifs.IVNic) (ifs.IServiceHandler, bool) {

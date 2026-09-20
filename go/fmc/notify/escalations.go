@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/saichler/l8notify/go/escalation"
-	ntf "github.com/saichler/l8notify/go/types/l8notify"
+	ntf "github.com/saichler/l8types/go/types/l8notify"
 )
 
 var (

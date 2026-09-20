@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	ntfchannel "github.com/saichler/l8notify/go/channel"
-	ntf "github.com/saichler/l8notify/go/types/l8notify"
 	"github.com/saichler/l8notify/go/template"
+	ntf "github.com/saichler/l8types/go/types/l8notify"
 )
 
 var smtpConfig *ntf.SmtpConfig
@@ -21,7 +21,7 @@ func SendNotification(channel ntf.NotifyChannel, endpoint, tmpl string, vars map
 		Endpoint: endpoint,
 		Template: tmpl,
 	}
-	result := ntfchannel.Dispatch(target, msg, smtpConfig, nil)
+	result := ntfchannel.Dispatch(target, "", msg, smtpConfig, nil)
 	if result != nil && result.Status == ntf.DeliveryStatus_DELIVERY_STATUS_FAILED {
 		fmt.Printf("[notify] delivery failed to %s: %s\n", endpoint, result.ErrorMessage)
 	}

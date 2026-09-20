@@ -12,10 +12,9 @@ const (
 )
 
 func Activate(creds, dbname string, vnic ifs.IVNic) {
-	l8c.ActivateService(l8c.ServiceConfig{
-		ServiceName: ServiceName, ServiceArea: ServiceArea,
-		PrimaryKey: "SubscriptionId", Callback: newFmcSubscriptionServiceCallback(),
-	}, &fmc.FmcSubscription{}, &fmc.FmcSubscriptionList{}, creds, dbname, vnic)
+	sla := l8c.NewOrmSLA(ServiceName, ServiceArea, "SubscriptionId", newFmcSubscriptionServiceCallback(),
+		&fmc.FmcSubscription{}, &fmc.FmcSubscriptionList{})
+	l8c.ActivateService(sla, creds, dbname, vnic)
 }
 
 func Subscriptions(vnic ifs.IVNic) (ifs.IServiceHandler, bool) {

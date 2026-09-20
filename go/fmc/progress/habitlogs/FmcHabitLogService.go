@@ -12,10 +12,9 @@ const (
 )
 
 func Activate(creds, dbname string, vnic ifs.IVNic) {
-	l8c.ActivateService(l8c.ServiceConfig{
-		ServiceName: ServiceName, ServiceArea: ServiceArea,
-		PrimaryKey: "LogId", Callback: newFmcHabitLogServiceCallback(),
-	}, &fmc.FmcHabitLog{}, &fmc.FmcHabitLogList{}, creds, dbname, vnic)
+	sla := l8c.NewOrmSLA(ServiceName, ServiceArea, "LogId", newFmcHabitLogServiceCallback(),
+		&fmc.FmcHabitLog{}, &fmc.FmcHabitLogList{})
+	l8c.ActivateService(sla, creds, dbname, vnic)
 }
 
 func HabitLogs(vnic ifs.IVNic) (ifs.IServiceHandler, bool) {
