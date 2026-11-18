@@ -59,11 +59,11 @@ kubectl wait --for=condition=Ready nodes --all --timeout=120s
 
 echo "Loading Docker images into KIND cluster..."
 IMAGES=(
-  saichler/fmc-vnet:latest
-  saichler/fmc-log-vnet:latest
-  saichler/fmc-log-agent:latest
-  saichler/fmc:latest
-  saichler/fmc-web:latest
+  registry.layer-8.dev:44443/fmc/fmc-vnet:latest
+  registry.layer-8.dev:44443/fmc/fmc-log-vnet:latest
+  registry.layer-8.dev:44443/fmc/fmc-log-agent:latest
+  registry.layer-8.dev:44443/fmc/fmc:latest
+  registry.layer-8.dev:44443/fmc/fmc-web:latest
 )
 
 for img in "${IMAGES[@]}"; do

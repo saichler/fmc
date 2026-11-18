@@ -53,9 +53,11 @@ spec:
         app: fmc-vnet
     spec:
       hostNetwork: true
+      imagePullSecrets:
+        - name: harbor-pull
       containers:
         - name: fmc-vnet
-          image: saichler/fmc-vnet:latest
+          image: registry.layer-8.dev:44443/fmc/fmc-vnet:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
@@ -91,9 +93,11 @@ spec:
         app: fmc-log-vnet
     spec:
       hostNetwork: true
+      imagePullSecrets:
+        - name: harbor-pull
       containers:
         - name: fmc-log-vnet
-          image: saichler/fmc-log-vnet:latest
+          image: registry.layer-8.dev:44443/fmc/fmc-log-vnet:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
@@ -126,9 +130,11 @@ spec:
       labels:
         app: fmc-log-agent
     spec:
+      imagePullSecrets:
+        - name: harbor-pull
       containers:
         - name: fmc-log-agent
-          image: saichler/fmc-log-agent:latest
+          image: registry.layer-8.dev:44443/fmc/fmc-log-agent:latest
           imagePullPolicy: Always
           env:
             - name: LOGPATH
@@ -165,9 +171,11 @@ spec:
       labels:
         app: fmc
     spec:
+      imagePullSecrets:
+        - name: harbor-pull
       containers:
         - name: fmc
-          image: saichler/fmc:latest
+          image: registry.layer-8.dev:44443/fmc/fmc:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
@@ -201,9 +209,11 @@ spec:
         app: fmc-web
     spec:
       hostNetwork: true
+      imagePullSecrets:
+        - name: harbor-pull
       containers:
         - name: fmc-web
-          image: saichler/fmc-web:latest
+          image: registry.layer-8.dev:44443/fmc/fmc-web:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP

@@ -8,7 +8,7 @@ wget https://raw.githubusercontent.com/saichler/l8types/refs/heads/main/proto/ap
 wget https://raw.githubusercontent.com/saichler/l8common/refs/heads/main/proto/l8common.proto
 
 # FMC
-docker run --user "$(id -u):$(id -g)" -e PROTO=fmc.proto --mount type=bind,source="$PWD",target=/home/proto/ -i saichler/protoc:latest
+docker run --user "$(id -u):$(id -g)" -e PROTO=fmc.proto --mount type=bind,source="$PWD",target=/home/proto/ -i registry.layer-8.dev:44443/library/protoc:latest
 
 rm api.proto
 rm l8common.proto

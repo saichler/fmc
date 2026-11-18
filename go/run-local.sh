@@ -5,7 +5,7 @@ docker rm -f unsecure-postgres 2>/dev/null || true
 sudo mkdir -p /data/postgres && sudo chmod 777 /data /data/postgres 2>/dev/null || true
 docker run -d --name unsecure-postgres -p 5432:5432 -v /data/:/data/ \
   --entrypoint /bin/sh \
-  saichler/unsecure-postgres:latest \
+  registry.layer-8.dev:44443/library/unsecure-postgres:latest \
   -c "/start-postgres.sh admin admin admin 5432 && tail -f /dev/null"
 
 # clean up

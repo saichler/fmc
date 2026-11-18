@@ -37,10 +37,10 @@ FMC is built on the Layer 8 framework with 6 service modules:
 
 | Image | Purpose |
 |-------|---------|
-| `saichler/fmc` | Backend services (PostgreSQL) |
-| `saichler/fmc-web` | Admin/Coach portal web server |
-| `saichler/fmc-member-web` | Member portal web server |
-| `saichler/fmc-vnet` | Virtual network layer |
+| `registry.layer-8.dev:44443/fmc/fmc` | Backend services (PostgreSQL) |
+| `registry.layer-8.dev:44443/fmc/fmc-web` | Admin/Coach portal web server |
+| `registry.layer-8.dev:44443/fmc/fmc-member-web` | Member portal web server |
+| `registry.layer-8.dev:44443/fmc/fmc-vnet` | Virtual network layer |
 
 ## Key Features
 
